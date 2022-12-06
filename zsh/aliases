@@ -1,0 +1,21 @@
+alias vim='nvim'
+alias c='clear'
+
+alias ls='ls --color=auto'
+alias ll='ls -la'
+
+alias dir='mkdir -pv'
+alias r='rm -r'
+
+alias mv='mv -i'
+alias cp='cp -i'
+alias ln='ln -i'
+
+alias n='npm'
+alias y='yarn'
+alias p='pnpm'
+
+alias chat='twt'
+alias watch='streamlink'
+alias download='youtube-dl'
+alias yt='ytfzf --thumb-viewer=kitty -t'
