@@ -5,6 +5,7 @@ return require('packer').startup(function(use)
 	use 'catppuccin/nvim'
 	use 'nvim-telescope/telescope-file-browser.nvim'
 	use 'nvim-treesitter/nvim-treesitter'
+	use 'ThePrimeagen/harpoon'
 	use {
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.0',
