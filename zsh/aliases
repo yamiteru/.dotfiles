@@ -7,10 +7,6 @@ alias ll='ls -la'
 alias dir='mkdir -pv'
 alias r='rm -r'
 
-alias mv='mv -i'
-alias cp='cp -i'
-alias ln='ln -i'
-
 alias n='npm'
 alias y='yarn'
 alias p='pnpm'
