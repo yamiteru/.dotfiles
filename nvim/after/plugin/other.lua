@@ -2,7 +2,7 @@ require('grapple').setup()
 
 require('lualine').setup({
 	options = {
-		theme = "catppuccin"
+		theme = "solarized"
 	}	
 })
 
