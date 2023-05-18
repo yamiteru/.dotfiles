@@ -1,4 +1,8 @@
-yarn/
-twt/
+yarn
+coc
+github-copilot
+neofetch
+
+*.swp
 
 .DS_Store
