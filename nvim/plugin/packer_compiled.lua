@@ -93,7 +93,7 @@ _G.packer_plugins = {
   },
   ["copilot.lua"] = {
     commands = { "Copilot" },
-    config = { "\27LJ\2\nç\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\15suggestion\1\0\1\17auto_trigger\2\14filetypes\1\0\0\1\0\2\15typescript\2\15javascript\2\nsetup\fcopilot\frequire\0" },
+    config = { "\27LJ\2\nç\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\15suggestion\1\0\1\17auto_trigger\2\14filetypes\1\0\0\1\0\2\15javascript\2\15typescript\2\nsetup\fcopilot\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -129,7 +129,7 @@ _G.packer_plugins = {
     url = "https://github.com/williamboman/mason-lspconfig.nvim"
   },
   ["mason-tool-installer.nvim"] = {
-    config = { "\27LJ\2\nÖ\4\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\21ensure_installed\1\22\0\0\25bash-language-server\24lua-language-server\25editorconfig-checker\fcss-lsp\31cssmodules-language-server$docker-compose-language-service\31dockerfile-language-server\25editorconfig-checker\remmet-ls\15eslint-lsp\rhtml-lsp\rjson-lsp\17markdownlint\rprettier\27prisma-language-server\18rust-analyzer\14stylelint\27svelte-language-server tailwindcss-language-server\31typescript-language-server\25yaml-language-server\1\0\2\19debounce_hours\3\24\16start_delay\3à'\nsetup\25mason-tool-installer\frequire\0" },
+    config = { "\27LJ\2\nÖ\4\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\21ensure_installed\1\22\0\0\25bash-language-server\24lua-language-server\25editorconfig-checker\fcss-lsp\31cssmodules-language-server$docker-compose-language-service\31dockerfile-language-server\25editorconfig-checker\remmet-ls\15eslint-lsp\rhtml-lsp\rjson-lsp\17markdownlint\rprettier\27prisma-language-server\18rust-analyzer\14stylelint\27svelte-language-server tailwindcss-language-server\31typescript-language-server\25yaml-language-server\1\0\2\16start_delay\3à'\19debounce_hours\3\24\nsetup\25mason-tool-installer\frequire\0" },
     loaded = true,
     path = "/Users/yamiteru/.local/share/nvim/site/pack/packer/start/mason-tool-installer.nvim",
     url = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim"
@@ -169,7 +169,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-tree/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
-    config = { "\27LJ\2\nê\1\0\2\t\0\a\1\21*\2\0\0006\3\0\0006\5\1\0009\5\2\0059\5\3\0056\6\1\0009\6\4\0069\6\5\6\18\b\1\0B\6\2\0A\3\1\3\15\0\3\0X\5\aÄ\15\0\4\0X\5\5Ä9\5\6\4\1\2\5\0X\5\2Ä+\5\2\0L\5\2\0K\0\1\0\tsize\22nvim_buf_get_name\bapi\ffs_stat\tloop\bvim\npcallÄ¿\fÌ\4\1\0\5\0\18\0\0216\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0005\4\a\0=\4\b\3=\3\t\0025\3\n\0=\3\v\0025\3\f\0003\4\r\0=\4\14\3=\3\15\0025\3\16\0=\3\17\2B\0\2\1K\0\1\0\21ensure_installed\1\31\0\0\6c\bcpp\15commonlisp\tdart\tbash\blua\bcss\15dockerfile\18gitattributes\ago\fgraphql\14gitcommit\14gitignore\thtml\njsdoc\rmarkdown\nocaml\vprisma\vpython\6r\nregex\trust\bsql\15javascript\15typescript\rmarkdown\vsvelte\bvue\bzig\btsx\14highlight\fdisable\0\1\0\2&additional_vim_regex_highlighting\1\venable\2\14autopairs\1\0\1\venable\2\26incremental_selection\fkeymaps\1\0\4\21node_incremental\f<space>\22scope_incremental\n<tab>\19init_selection\f<space>\21node_decremental\t<bs>\1\0\1\venable\2\vindent\1\0\1\venable\2\1\0\2\17auto_install\2\17sync_install\1\nsetup\28nvim-treesitter.configs\frequire\0" },
+    config = { "\27LJ\2\nê\1\0\2\t\0\a\1\21*\2\0\0006\3\0\0006\5\1\0009\5\2\0059\5\3\0056\6\1\0009\6\4\0069\6\5\6\18\b\1\0B\6\2\0A\3\1\3\15\0\3\0X\5\aÄ\15\0\4\0X\5\5Ä9\5\6\4\1\2\5\0X\5\2Ä+\5\2\0L\5\2\0K\0\1\0\tsize\22nvim_buf_get_name\bapi\ffs_stat\tloop\bvim\npcallÄ¿\f”\3\1\0\5\0\14\0\0176\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0003\4\t\0=\4\n\3=\3\v\0025\3\f\0=\3\r\2B\0\2\1K\0\1\0\21ensure_installed\1\31\0\0\6c\bcpp\15commonlisp\tdart\tbash\blua\bcss\15dockerfile\18gitattributes\ago\fgraphql\14gitcommit\14gitignore\thtml\njsdoc\rmarkdown\nocaml\vprisma\vpython\6r\nregex\trust\bsql\15javascript\15typescript\rmarkdown\vsvelte\bvue\bzig\btsx\14highlight\fdisable\0\1\0\2&additional_vim_regex_highlighting\1\venable\2\14autopairs\1\0\1\venable\2\vindent\1\0\1\venable\2\1\0\2\17auto_install\2\17sync_install\1\nsetup\28nvim-treesitter.configs\frequire\0" },
     loaded = true,
     path = "/Users/yamiteru/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
@@ -206,7 +206,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-telescope/telescope-ui-select.nvim"
   },
   ["telescope.nvim"] = {
-    config = { "\27LJ\2\n˜\1\0\0\5\0\n\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\4\0005\4\3\0=\4\5\3=\3\a\2B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\b\0'\2\5\0B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\b\0'\2\t\0B\0\2\1K\0\1\0\14ui-select\19load_extension\15extensions\1\0\0\bfzf\1\0\0\1\0\4\28override_generic_sorter\2\nfuzzy\2\14case_mode\15smart_case\25override_file_sorter\2\nsetup\14telescope\frequire\0" },
+    config = { "\27LJ\2\n˜\1\0\0\5\0\n\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\4\0005\4\3\0=\4\5\3=\3\a\2B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\b\0'\2\5\0B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\b\0'\2\t\0B\0\2\1K\0\1\0\14ui-select\19load_extension\15extensions\1\0\0\bfzf\1\0\0\1\0\4\nfuzzy\2\14case_mode\15smart_case\25override_file_sorter\2\28override_generic_sorter\2\nsetup\14telescope\frequire\0" },
     loaded = true,
     path = "/Users/yamiteru/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
@@ -214,46 +214,34 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: solarized.nvim
-time([[Config for solarized.nvim]], true)
-try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\bset\14solarized\frequire\0", "config", "solarized.nvim")
-time([[Config for solarized.nvim]], false)
--- Config for: grapple.nvim
-time([[Config for grapple.nvim]], true)
-try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fgrapple\frequire\0", "config", "grapple.nvim")
-time([[Config for grapple.nvim]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
-try_loadstring("\27LJ\2\n˜\1\0\0\5\0\n\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\4\0005\4\3\0=\4\5\3=\3\a\2B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\b\0'\2\5\0B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\b\0'\2\t\0B\0\2\1K\0\1\0\14ui-select\19load_extension\15extensions\1\0\0\bfzf\1\0\0\1\0\4\28override_generic_sorter\2\nfuzzy\2\14case_mode\15smart_case\25override_file_sorter\2\nsetup\14telescope\frequire\0", "config", "telescope.nvim")
-time([[Config for telescope.nvim]], false)
--- Config for: nvim-lastplace
-time([[Config for nvim-lastplace]], true)
-try_loadstring("\27LJ\2\n⁄\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\30lastplace_ignore_filetype\1\5\0\0\14gitcommit\14gitrebase\bsvn\rhgcommit\29lastplace_ignore_buftype\1\0\1\25lastplace_open_folds\2\1\4\0\0\rquickfix\vnofile\thelp\nsetup\19nvim-lastplace\frequire\0", "config", "nvim-lastplace")
-time([[Config for nvim-lastplace]], false)
+-- Config for: nvim-autopairs
+time([[Config for nvim-autopairs]], true)
+try_loadstring("\27LJ\2\nM\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\rcheck_ts\2\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
+time([[Config for nvim-autopairs]], false)
 -- Config for: nvim-treesitter
 time([[Config for nvim-treesitter]], true)
-try_loadstring("\27LJ\2\nê\1\0\2\t\0\a\1\21*\2\0\0006\3\0\0006\5\1\0009\5\2\0059\5\3\0056\6\1\0009\6\4\0069\6\5\6\18\b\1\0B\6\2\0A\3\1\3\15\0\3\0X\5\aÄ\15\0\4\0X\5\5Ä9\5\6\4\1\2\5\0X\5\2Ä+\5\2\0L\5\2\0K\0\1\0\tsize\22nvim_buf_get_name\bapi\ffs_stat\tloop\bvim\npcallÄ¿\fÌ\4\1\0\5\0\18\0\0216\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0005\4\a\0=\4\b\3=\3\t\0025\3\n\0=\3\v\0025\3\f\0003\4\r\0=\4\14\3=\3\15\0025\3\16\0=\3\17\2B\0\2\1K\0\1\0\21ensure_installed\1\31\0\0\6c\bcpp\15commonlisp\tdart\tbash\blua\bcss\15dockerfile\18gitattributes\ago\fgraphql\14gitcommit\14gitignore\thtml\njsdoc\rmarkdown\nocaml\vprisma\vpython\6r\nregex\trust\bsql\15javascript\15typescript\rmarkdown\vsvelte\bvue\bzig\btsx\14highlight\fdisable\0\1\0\2&additional_vim_regex_highlighting\1\venable\2\14autopairs\1\0\1\venable\2\26incremental_selection\fkeymaps\1\0\4\21node_incremental\f<space>\22scope_incremental\n<tab>\19init_selection\f<space>\21node_decremental\t<bs>\1\0\1\venable\2\vindent\1\0\1\venable\2\1\0\2\17auto_install\2\17sync_install\1\nsetup\28nvim-treesitter.configs\frequire\0", "config", "nvim-treesitter")
+try_loadstring("\27LJ\2\nê\1\0\2\t\0\a\1\21*\2\0\0006\3\0\0006\5\1\0009\5\2\0059\5\3\0056\6\1\0009\6\4\0069\6\5\6\18\b\1\0B\6\2\0A\3\1\3\15\0\3\0X\5\aÄ\15\0\4\0X\5\5Ä9\5\6\4\1\2\5\0X\5\2Ä+\5\2\0L\5\2\0K\0\1\0\tsize\22nvim_buf_get_name\bapi\ffs_stat\tloop\bvim\npcallÄ¿\f”\3\1\0\5\0\14\0\0176\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0003\4\t\0=\4\n\3=\3\v\0025\3\f\0=\3\r\2B\0\2\1K\0\1\0\21ensure_installed\1\31\0\0\6c\bcpp\15commonlisp\tdart\tbash\blua\bcss\15dockerfile\18gitattributes\ago\fgraphql\14gitcommit\14gitignore\thtml\njsdoc\rmarkdown\nocaml\vprisma\vpython\6r\nregex\trust\bsql\15javascript\15typescript\rmarkdown\vsvelte\bvue\bzig\btsx\14highlight\fdisable\0\1\0\2&additional_vim_regex_highlighting\1\venable\2\14autopairs\1\0\1\venable\2\vindent\1\0\1\venable\2\1\0\2\17auto_install\2\17sync_install\1\nsetup\28nvim-treesitter.configs\frequire\0", "config", "nvim-treesitter")
 time([[Config for nvim-treesitter]], false)
 -- Config for: lualine.nvim
 time([[Config for lualine.nvim]], true)
 try_loadstring("\27LJ\2\nÆ\1\0\0\6\0\n\0\0156\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\a\0004\4\3\0005\5\6\0>\5\1\4=\4\b\3=\3\t\2B\0\2\1K\0\1\0\rsections\14lualine_c\1\0\0\1\2\2\0\rfilename\16file_status\2\tpath\3\2\foptions\1\0\0\1\0\1\ntheme\14solarized\nsetup\flualine\frequire\0", "config", "lualine.nvim")
 time([[Config for lualine.nvim]], false)
--- Config for: nvim-autopairs
-time([[Config for nvim-autopairs]], true)
-try_loadstring("\27LJ\2\nM\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\rcheck_ts\2\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
-time([[Config for nvim-autopairs]], false)
 -- Config for: Comment.nvim
 time([[Config for Comment.nvim]], true)
 try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
 time([[Config for Comment.nvim]], false)
--- Config for: mason-tool-installer.nvim
-time([[Config for mason-tool-installer.nvim]], true)
-try_loadstring("\27LJ\2\nÖ\4\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\21ensure_installed\1\22\0\0\25bash-language-server\24lua-language-server\25editorconfig-checker\fcss-lsp\31cssmodules-language-server$docker-compose-language-service\31dockerfile-language-server\25editorconfig-checker\remmet-ls\15eslint-lsp\rhtml-lsp\rjson-lsp\17markdownlint\rprettier\27prisma-language-server\18rust-analyzer\14stylelint\27svelte-language-server tailwindcss-language-server\31typescript-language-server\25yaml-language-server\1\0\2\19debounce_hours\3\24\16start_delay\3à'\nsetup\25mason-tool-installer\frequire\0", "config", "mason-tool-installer.nvim")
-time([[Config for mason-tool-installer.nvim]], false)
--- Config for: mason.nvim
-time([[Config for mason.nvim]], true)
-try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nmason\frequire\0", "config", "mason.nvim")
-time([[Config for mason.nvim]], false)
+-- Config for: solarized.nvim
+time([[Config for solarized.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\bset\14solarized\frequire\0", "config", "solarized.nvim")
+time([[Config for solarized.nvim]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+try_loadstring("\27LJ\2\n˜\1\0\0\5\0\n\0\0236\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\4\0005\4\3\0=\4\5\3=\3\a\2B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\b\0'\2\5\0B\0\2\0016\0\0\0'\2\1\0B\0\2\0029\0\b\0'\2\t\0B\0\2\1K\0\1\0\14ui-select\19load_extension\15extensions\1\0\0\bfzf\1\0\0\1\0\4\nfuzzy\2\14case_mode\15smart_case\25override_file_sorter\2\28override_generic_sorter\2\nsetup\14telescope\frequire\0", "config", "telescope.nvim")
+time([[Config for telescope.nvim]], false)
+-- Config for: nvim-tree.lua
+time([[Config for nvim-tree.lua]], true)
+try_loadstring("\27LJ\2\nr\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\ffilters\1\0\1\rdotfiles\2\1\0\1\fsort_by\19case_sensitive\nsetup\14nvim-tree\frequire\0", "config", "nvim-tree.lua")
+time([[Config for nvim-tree.lua]], false)
 -- Config for: auto-save.nvim
 time([[Config for auto-save.nvim]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14auto-save\frequire\0", "config", "auto-save.nvim")
@@ -262,10 +250,22 @@ time([[Config for auto-save.nvim]], false)
 time([[Config for git.nvim]], true)
 try_loadstring("\27LJ\2\nJ\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\21default_mappings\2\nsetup\bgit\frequire\0", "config", "git.nvim")
 time([[Config for git.nvim]], false)
--- Config for: nvim-tree.lua
-time([[Config for nvim-tree.lua]], true)
-try_loadstring("\27LJ\2\nr\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\ffilters\1\0\1\rdotfiles\2\1\0\1\fsort_by\19case_sensitive\nsetup\14nvim-tree\frequire\0", "config", "nvim-tree.lua")
-time([[Config for nvim-tree.lua]], false)
+-- Config for: mason-tool-installer.nvim
+time([[Config for mason-tool-installer.nvim]], true)
+try_loadstring("\27LJ\2\nÖ\4\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\21ensure_installed\1\22\0\0\25bash-language-server\24lua-language-server\25editorconfig-checker\fcss-lsp\31cssmodules-language-server$docker-compose-language-service\31dockerfile-language-server\25editorconfig-checker\remmet-ls\15eslint-lsp\rhtml-lsp\rjson-lsp\17markdownlint\rprettier\27prisma-language-server\18rust-analyzer\14stylelint\27svelte-language-server tailwindcss-language-server\31typescript-language-server\25yaml-language-server\1\0\2\16start_delay\3à'\19debounce_hours\3\24\nsetup\25mason-tool-installer\frequire\0", "config", "mason-tool-installer.nvim")
+time([[Config for mason-tool-installer.nvim]], false)
+-- Config for: nvim-lastplace
+time([[Config for nvim-lastplace]], true)
+try_loadstring("\27LJ\2\n⁄\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\30lastplace_ignore_filetype\1\5\0\0\14gitcommit\14gitrebase\bsvn\rhgcommit\29lastplace_ignore_buftype\1\0\1\25lastplace_open_folds\2\1\4\0\0\rquickfix\vnofile\thelp\nsetup\19nvim-lastplace\frequire\0", "config", "nvim-lastplace")
+time([[Config for nvim-lastplace]], false)
+-- Config for: mason.nvim
+time([[Config for mason.nvim]], true)
+try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nmason\frequire\0", "config", "mason.nvim")
+time([[Config for mason.nvim]], false)
+-- Config for: grapple.nvim
+time([[Config for grapple.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fgrapple\frequire\0", "config", "grapple.nvim")
+time([[Config for grapple.nvim]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)

@@ -3,6 +3,7 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.opt.termguicolors = true
 
+vim.wo.relativenumber = true
 vim.opt.number = true
 vim.opt.showmatch = true
 vim.opt.splitright = true
@@ -20,11 +21,18 @@ vim.opt.completeopt = 'menuone,noinsert,noselect'
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("data") .. "undo"
 
-vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
+vim.opt.smarttab = true
 vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.breakindent = true
 vim.opt.wrap = true
+
+vim.opt.encoding = 'utf-8'
+vim.opt.fileencoding = 'utf-8'
+vim.scriptencoding = 'utf-8'
 
 vim.g.mapleader = ' '
 
@@ -52,18 +60,7 @@ function tree_sitter_config()
 		sync_install = false,
 		auto_install = true,
 		indent = { enable = true },
-		incremental_selection = {
-			enable = true,
-			keymaps = {
-				init_selection = "<space>",
-				node_incremental = "<space>",
-				node_decremental = "<bs>",
-				scope_incremental = "<tab>",
-			},
-		},
-		autopairs = {
-			enable = true,
-		},
+		autopairs = { enable = true },
 		highlight = {
 			enable = true,
 			disable = function(lang, buf)
@@ -294,109 +291,71 @@ require('packer').startup(function(use)
   }
 end)
 
-vim.api.nvim_create_autocmd("TermOpen", {
-	command = [[setlocal nonumber norelativenumber]]
-})
-
-local keybind = vim.api.nvim_set_keymap
-local ns = { noremap = true, silent = true }
-local nse = { noremap = true, silent = true, expr = true }
+local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
 
 -- Core
-keybind('n', '<Leader>s', ':w!<CR>', ns)
-keybind('n', '<Leader>q', ':q!<CR>', ns)
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+vim.keymap.set('n', '<Leader>,', ':nohlsearch<CR>')
+vim.keymap.set('i', 'jj', '<ESC>')
+vim.keymap.set('i', 'jk', '<ESC>')
 
-keybind('n', '<Up>', 'gk', ns)
-keybind('n', '<Down>', 'gj', ns)
-
-keybind('n', 'Y', 'y$', ns)
-
-keybind('v', 'J', ":m '>+1<CR>gv=gv", ns)
-keybind('v', 'K', ":m '<-2<CR>gv=gv", ns)
-
-keybind('n', '<leader>wc', '<C-W>c', ns)
-keybind('n', '<leader>wv', '<C-W>v', ns)
-keybind('n', '<leader>ws', '<C-W>s', ns)
-keybind('n', '<leader>wh', '<C-W>h', ns)
-keybind('n', '<leader>wj', '<C-W>j', ns)
-keybind('n', '<leader>wk', '<C-W>k', ns)
-keybind('n', '<leader>wl', '<C-W>l', ns)
-keybind('n', '<leader>wH', '<C-W>H', ns)
-keybind('n', '<leader>wJ', '<C-W>J', ns)
-keybind('n', '<leader>wK', '<C-W>K', ns)
-keybind('n', '<leader>wL', '<C-W>L', ns)
-
-keybind('v', '<leader>y', '"+y', ns)
-keybind('n', '<leader>Y', '"+yg_', ns)
-keybind('n', '<leader>y', '"+y', ns)
-keybind('n', '<leader>yy', '"+yy', ns)
-keybind('n', '<leader>p', '"+p', ns)
-keybind('n', '<leader>P', '"+P', ns)
-keybind('v', '<leader>p', '"+p', ns)
-keybind('v', '<leader>P', '"+P', ns)
-
-keybind("n", "<leader>rw", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], ns)
-keybind('n', '<Leader>,', ':nohlsearch<CR>', ns)
-
-keybind('i', 'j', 'gj', ns)
-keybind('i', 'k', 'gk', ns)
-keybind('i', 'jj', '<ESC>', ns)
-keybind('i', 'jk', '<ESC>', ns)
-
-keybind('t', '<leader>q', '<C-\\><C-n>:q<cr>', ns)
-keybind('t', '<ESC>', '<C-\\><C-n>', ns)
-keybind('n', '<leader>tv', '<cmd>vnew<CR>', ns)
-keybind('n', '<leader>ts', '<cmd>split<CR>', ns)
-keybind('t', '<leader>tv', '<c-w><cmd>vnew<CR>', ns)
-keybind('t', '<leader>ts', '<c-w><cmd>split<CR>', ns)
-keybind('t', '<C-h>', '<C-\\><C-n><C-w>h', ns)
-keybind('t', '<C-j>', '<C-\\><C-n><C-w>j', ns)
-keybind('t', '<C-k>', '<C-\\><C-n><C-w>k', ns)
-keybind('t', '<C-l>', '<C-\\><C-n><C-w>l', ns)
+-- Window
+vim.keymap.set('n', '<leader>wc', '<C-W>c')
+vim.keymap.set('n', '<leader>wv', '<C-W>v')
+vim.keymap.set('n', '<leader>ws', '<C-W>s')
+vim.keymap.set('n', '<leader>wh', '<C-W>h')
+vim.keymap.set('n', '<leader>wj', '<C-W>j')
+vim.keymap.set('n', '<leader>wk', '<C-W>k')
+vim.keymap.set('n', '<leader>wl', '<C-W>l')
+vim.keymap.set('n', '<leader>wH', '<C-W>H')
+vim.keymap.set('n', '<leader>wJ', '<C-W>J')
+vim.keymap.set('n', '<leader>wK', '<C-W>K')
+vim.keymap.set('n', '<leader>wL', '<C-W>L')
 
 -- CoC
-keybind('n', 'gd', '<Plug>(coc-definition)', ns)
-keybind('n', 'gy', '<Plug>(coc-type-definition)', ns)
-keybind('n', 'gi', '<Plug>(coc-implementation)', ns)
-keybind('n', 'gr', '<Plug>(coc-references)', ns)
-keybind('n', 'K', ':call CocActionAsync("doHover")<CR>', ns)
-keybind('n', '<leader>.', '<Plug>(coc-codeaction)', ns)
-keybind('n', '<leader>cr', '<Plug>(coc-rename)', ns)
-keybind('n', '<leader>co', ':<C-u>CocList outline<cr>', ns)
-keybind('n', '<leader>cs', ':<C-u>CocList -I symbols<cr>', ns)
-keybind('n', '<leader>cl', ':<C-u>CocList locationlist<cr>', ns)
-keybind('n', '<leader>cc', ':<C-u>CocList commands<cr>', ns)
-keybind('n', '<leader>cR', ':<C-u>CocRestart<cr>', ns)
-keybind('n', '<leader>cx', ':<C-u>CocList extensions<cr>', ns)
-keybind('n', '<leader>ce', ':CocCommand eslint.executeAutofix<CR>', ns)
-keybind('n', '<leader>cp', ':CocCommand prettier.formatFile<CR>', ns)
-keybind('i', '<C-Space>', 'coc#refresh()', nse)
-keybind('i', '<TAB>', 'coc#pum#visible() ? coc#pum#next(1) : "<TAB>"', nse)
-keybind('i', '<S-TAB>', 'coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"', nse)
-keybind('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-G>u<CR><C-R>=coc#on_enter()<CR>"', nse)
+vim.keymap.set('n', 'gd', '<Plug>(coc-definition)')
+vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)')
+vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)')
+vim.keymap.set('n', 'gr', '<Plug>(coc-references)')
+vim.keymap.set('n', 'K', ':call CocActionAsync("doHover")<CR>')
+vim.keymap.set('n', '<leader>.', '<Plug>(coc-codeaction)')
+vim.keymap.set('n', '<leader>cr', '<Plug>(coc-rename)')
+vim.keymap.set('n', '<leader>co', ':<C-u>CocList outline<CR>')
+vim.keymap.set('n', '<leader>cs', ':<C-u>CocList -I symbols<CR>')
+vim.keymap.set('n', '<leader>cl', ':<C-u>CocList locationlist<CR>')
+vim.keymap.set('n', '<leader>cc', ':<C-u>CocList commands<CR>')
+vim.keymap.set('n', '<leader>cR', ':<C-u>CocRestart<CR>')
+vim.keymap.set('n', '<leader>cx', ':<C-u>CocList extensions<CR>')
+vim.keymap.set('n', '<leader>ce', ':CocCommand eslint.executeAutofix<CR>')
+vim.keymap.set('n', '<leader>cp', ':CocCommand prettier.formatFile<CR>')
+vim.keymap.set('i', '<C-Space>', 'coc#refresh()', opts)
+vim.keymap.set('i', '<TAB>', 'coc#pum#visible() ? coc#pum#next(1) : "<TAB>"', opts)
+vim.keymap.set('i', '<S-TAB>', 'coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"', opts)
+vim.keymap.set('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-G>u<CR><C-R>=coc#on_enter()<CR>"', opts)
 
 -- NvimTree
-keybind('n', '<leader>to', ':NvimTreeFocus<cr>', ns)
-keybind('n', '<leader>tt', ':NvimTreeToggle<cr>', ns)
-keybind('n', '<leader>tf', ':NvimTreeFindFile<cr>', ns)
+vim.keymap.set('n', '<leader>to', ':NvimTreeFocus<CR>')
+vim.keymap.set('n', '<leader>tt', ':NvimTreeToggle<CR>')
+vim.keymap.set('n', '<leader>tf', ':NvimTreeFindFile<CR>')
 
 -- Grapple
-keybind('n', '<leader>mf', 'grapple#popup_tags()', nse)
-keybind('n', '<leader>ms', 'grapple#popup_scopes()', nse)
-keybind('n', '<leader>ma', 'grapple#tag()', nse)
-keybind('n', '<leader>md', 'grapple#untag()', nse)
-keybind('n', '<leader>mh', 'grapple#cycle_backward()', nse)
-keybind('n', '<leader>ml', 'grapple#cycle_forward()', nse)
-keybind('n', '<leader>mr', 'grapple#reset()', nse)
-keybind('n', '<leader>h', 'grapple#select({ key = 1 })', nse)
-keybind('n', '<leader>j', 'grapple#select({ key = 2 })', nse)
-keybind('n', '<leader>k', 'grapple#select({ key = 3 })', nse)
-keybind('n', '<leader>l', 'grapple#select({ key = 4 })', nse)
+vim.keymap.set('n', '<leader>mf', ':GrapplePopup tags<CR>')
+vim.keymap.set('n', '<leader>ms', ':GrapplePopup scopes<CR>')
+vim.keymap.set('n', '<leader>ma', ':GrappleTag<CR>')
+vim.keymap.set('n', '<leader>md', ':GrappleUntag<CR>')
+vim.keymap.set('n', '<leader>mh', ':GrappleCycle backward<CR>')
+vim.keymap.set('n', '<leader>ml', ':GrappleCycle forward<CR>')
+vim.keymap.set('n', '<leader>mr', ':GrappleReset<CR>')
+vim.keymap.set('n', '<leader>h', ':GrappleSelect index={1}<CR>')
+vim.keymap.set('n', '<leader>j', ':GrappleSelect 2<CR>')
+vim.keymap.set('n', '<leader>k', ':GrappleSelect 3<CR>')
+vim.keymap.set('n', '<leader>l', ':GrappleSelect 4<CR>')
 
 -- Telescope
-keybind('n', '<leader>ff', '<cmd>Telescope find_files<cr>', ns)
-keybind('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', ns)
-keybind('n', '<leader>fb', '<cmd>Telescope buffers<cr>', ns)
-keybind('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', ns)
-keybind('n', '<leader>fi', '<cmd>Telescope git_files<cr>', ns)
-keybind('n', '<leader>ft', '<cmd>Telescope treesitter<cr>', ns)
+vim.keymap.set('n', '<leader>ff', ':Telescope find_files<CR>')
+vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<CR>')
+vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>')
+vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<CR>')
+vim.keymap.set('n', '<leader>fi', ':Telescope git_files<CR>')
+vim.keymap.set('n', '<leader>ft', ':Telescope treesitter<CR>')
