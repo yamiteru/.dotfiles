@@ -42,23 +42,12 @@ end
 
 function lualine_config()
 	require('lualine').setup {
-		options = { theme = 'solarized' },
-		sections = {
-			lualine_c = {
-				{
-					'filename',
-					file_status = true,
-					path = 2
-				}
-			}
-		}
+		options = { theme = 'solarized' }
 	}
 end
 
 function tree_sitter_config()
 	require('nvim-treesitter.configs').setup {
-		sync_install = false,
-		auto_install = true,
 		indent = { enable = true },
 		autopairs = { enable = true },
 		highlight = {
@@ -70,38 +59,22 @@ function tree_sitter_config()
 					return true
 				end
 			end,
-			additional_vim_regex_highlighting = false,
 		},
 		ensure_installed = {
-			'c',
-			'cpp',
-			'commonlisp',
-			'dart',
-			'bash',
 			'lua',
 			'css',
 			'dockerfile',
 			'gitattributes',
-			'go',
-			'graphql',
 			'gitcommit',
 			'gitignore',
 			'html',
 			'jsdoc',
 			'markdown',
-			'ocaml',
-			'prisma',
-			'python',
-			'r',
-			'regex',
 			'rust',
-			'sql',
 			'javascript',
 			'typescript',
 			'markdown',
 			'svelte',
-			'vue',
-			'zig',
 			'tsx',
 		}
 	}
@@ -116,27 +89,20 @@ function mason_installer_config()
 		start_delay = 5000,
 		debounce_hours = 24,
 		ensure_installed = {
-			'bash-language-server',
 			'lua-language-server',
 			'editorconfig-checker',
 			'css-lsp',
-			'cssmodules-language-server',
 			'docker-compose-language-service',
-			'dockerfile-language-server',
-			'editorconfig-checker',
 			'emmet-ls',
 			'eslint-lsp',
 			'html-lsp',
 			'json-lsp',
 			'markdownlint',
 			'prettier',
-			'prisma-language-server',
 			'rust-analyzer',
 			'stylelint',
 			'svelte-language-server',
-			'tailwindcss-language-server',
 			'typescript-language-server',
-			'yaml-language-server',
 		}
 	}
 end
@@ -153,17 +119,12 @@ function comment_config()
 	require('Comment').setup()
 end
 
-function lastplace_config()
-	require("nvim-lastplace").setup {
-		lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
-		lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
-		lastplace_open_folds = true
-	}
-end
-
 function nvim_tree_config()
 	require('nvim-tree').setup {
 		sort_by = 'case_sensitive',
+		view = {
+			width = 40,
+		},
 		filters = {
 			dotfiles = true,
 		}
@@ -175,29 +136,20 @@ function grapple_config()
 end
 
 function telescope_config()
-	require("telescope").setup {
-		extensions = {
-			fzf = {
-				fuzzy = true,  
-				override_generic_sorter = true,
-				override_file_sorter = true,
-				case_mode = "smart_case"
-			}
-		}
-	}
-
-	require('telescope').load_extension('fzf')
+	require("telescope").setup()
 	require("telescope").load_extension("ui-select")
 end
 
 function copilot_config()
 	require('copilot').setup {
 		filetypes = {
-			javascript = true,
-			typescript = true,
+			["."] = true,
 		},
 		suggestion = {
-			auto_trigger = true
+			auto_trigger = true,
+			keymap = {
+				accept = "<leader><CR>",
+			},
 		}
 	}
 end
@@ -259,10 +211,6 @@ require('packer').startup(function(use)
 		config = comment_config
 	}
 	use {
-    "ethanholz/nvim-lastplace",
-    config = lastplace_config,
-  } 
-	use {
 		'nvim-tree/nvim-tree.lua',
 		config = nvim_tree_config
 	}
@@ -271,10 +219,6 @@ require('packer').startup(function(use)
 		config = grapple_config
 	}
 	use 'nvim-telescope/telescope-ui-select.nvim'
-	use {
-    "nvim-telescope/telescope-fzf-native.nvim", 
-		run = 'make' 
-  }
 	use {
 		'nvim-telescope/telescope.nvim',
 		config = telescope_config
@@ -323,39 +267,31 @@ vim.keymap.set('n', '<leader>.', '<Plug>(coc-codeaction)')
 vim.keymap.set('n', '<leader>cr', '<Plug>(coc-rename)')
 vim.keymap.set('n', '<leader>co', ':<C-u>CocList outline<CR>')
 vim.keymap.set('n', '<leader>cs', ':<C-u>CocList -I symbols<CR>')
-vim.keymap.set('n', '<leader>cl', ':<C-u>CocList locationlist<CR>')
 vim.keymap.set('n', '<leader>cc', ':<C-u>CocList commands<CR>')
-vim.keymap.set('n', '<leader>cR', ':<C-u>CocRestart<CR>')
-vim.keymap.set('n', '<leader>cx', ':<C-u>CocList extensions<CR>')
-vim.keymap.set('n', '<leader>ce', ':CocCommand eslint.executeAutofix<CR>')
-vim.keymap.set('n', '<leader>cp', ':CocCommand prettier.formatFile<CR>')
+vim.keymap.set('n', '<leader>cc', ':<C-u>CocRestart<CR>')
 vim.keymap.set('i', '<C-Space>', 'coc#refresh()', opts)
 vim.keymap.set('i', '<TAB>', 'coc#pum#visible() ? coc#pum#next(1) : "<TAB>"', opts)
 vim.keymap.set('i', '<S-TAB>', 'coc#pum#visible() ? coc#pum#prev(1) : "<C-h>"', opts)
-vim.keymap.set('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<C-G>u<CR><C-R>=coc#on_enter()<CR>"', opts)
+vim.keymap.set('i', '<S-CR>', [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
 
 -- NvimTree
-vim.keymap.set('n', '<leader>to', ':NvimTreeFocus<CR>')
-vim.keymap.set('n', '<leader>tt', ':NvimTreeToggle<CR>')
-vim.keymap.set('n', '<leader>tf', ':NvimTreeFindFile<CR>')
+vim.keymap.set('n', 'to', ':NvimTreeFocus<CR>')
+vim.keymap.set('n', 'tt', ':NvimTreeToggle<CR>')
+vim.keymap.set('n', 'tf', ':NvimTreeFindFile<CR>')
 
 -- Grapple
-vim.keymap.set('n', '<leader>mf', ':GrapplePopup tags<CR>')
-vim.keymap.set('n', '<leader>ms', ':GrapplePopup scopes<CR>')
-vim.keymap.set('n', '<leader>ma', ':GrappleTag<CR>')
-vim.keymap.set('n', '<leader>md', ':GrappleUntag<CR>')
-vim.keymap.set('n', '<leader>mh', ':GrappleCycle backward<CR>')
-vim.keymap.set('n', '<leader>ml', ':GrappleCycle forward<CR>')
-vim.keymap.set('n', '<leader>mr', ':GrappleReset<CR>')
-vim.keymap.set('n', '<leader>h', ':GrappleSelect index={1}<CR>')
-vim.keymap.set('n', '<leader>j', ':GrappleSelect 2<CR>')
-vim.keymap.set('n', '<leader>k', ':GrappleSelect 3<CR>')
-vim.keymap.set('n', '<leader>l', ':GrappleSelect 4<CR>')
+vim.keymap.set('n', 'mf', ':GrapplePopup tags<CR>')
+vim.keymap.set('n', 'ma', ':GrappleTag<CR>')
+vim.keymap.set('n', 'md', ':GrappleUntag<CR>')
+vim.keymap.set('n', 'mh', ':GrappleCycle backward<CR>')
+vim.keymap.set('n', 'ml', ':GrappleCycle forward<CR>')
+vim.keymap.set('n', 'mr', ':GrappleReset<CR>')
+vim.keymap.set('n', '<leader>h', ':GrappleSelect key=1<CR>')
+vim.keymap.set('n', '<leader>j', ':GrappleSelect key=2<CR>')
+vim.keymap.set('n', '<leader>k', ':GrappleSelect key=3<CR>')
+vim.keymap.set('n', '<leader>l', ':GrappleSelect key=4<CR>')
 
 -- Telescope
-vim.keymap.set('n', '<leader>ff', ':Telescope find_files<CR>')
-vim.keymap.set('n', '<leader>fg', ':Telescope live_grep<CR>')
-vim.keymap.set('n', '<leader>fb', ':Telescope buffers<CR>')
-vim.keymap.set('n', '<leader>fh', ':Telescope help_tags<CR>')
-vim.keymap.set('n', '<leader>fi', ':Telescope git_files<CR>')
-vim.keymap.set('n', '<leader>ft', ':Telescope treesitter<CR>')
+vim.keymap.set('n', 'ff', ':Telescope find_files<CR>')
+vim.keymap.set('n', 'fg', ':Telescope live_grep<CR>')
+vim.keymap.set('n', 'fb', ':Telescope buffers<CR>')

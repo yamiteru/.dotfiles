@@ -10,3 +10,6 @@ alias ll='ls -la'
 alias pm='sudo pacman'
 
 alias drm='docker rm -vf $(docker ps -aq) && docker rmi -f $(docker images -aq)'
+
+alias python='python3'
+alias pip='pip3'
