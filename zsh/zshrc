@@ -3,6 +3,7 @@ ZSH_THEME="robbyrussell"
 export ZSH="$HOME/.oh-my-zsh"
 export THIS="$HOME/.config/zsh"
 export PATH="$HOME/.config/bin:$PATH"
+export PATH="$HOME/Library/Python/3.9/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 source ~/.nvm/nvm.sh
