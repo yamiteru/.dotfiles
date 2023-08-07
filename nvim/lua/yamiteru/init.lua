@@ -31,10 +31,28 @@ vim.opt.wrap = true
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
 vim.scriptencoding = 'utf-8'
-vim.g.coq_settings = { auto_start = 'shut-up' }
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 function lspconfig_config()
-	require('mason').setup()
+	local lsp = require('lsp-zero').preset({})
+	local cmp = require('cmp')
+	local cmp_action = require('lsp-zero').cmp_action()
+
+	cmp.setup({
+		mapping = {
+			['<CR>'] = cmp.mapping.confirm({select = true}),
+			['<Tab>'] = cmp_action.luasnip_supertab(),
+			['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+		}
+	})
+
+	lsp.on_attach(function(client, bufnr)
+		lsp.default_keymaps({buffer = bufnr})
+	end)
+
+	lsp.setup({})
+
+	require('mason').setup({})
 	require('mason-lspconfig').setup({
 		ensure_installed = { 
 			'lua_ls', 
@@ -59,31 +77,6 @@ function lspconfig_config()
 			'rust_analyzer' 
 		},
 		automatic_installation = true
-	})
-
-	require('mason-lspconfig').setup_handlers {
-			function (server_name)
-					require('lspconfig')[server_name].setup(require('coq').lsp_ensure_capabilities())
-			end
-	}
-	
-	local lsp = require('lspconfig')
-
-	vim.api.nvim_create_autocmd('LspAttach', {
-	  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-	  callback = function(ev)
-	    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-	    local opts = { buffer = ev.buf }
-	    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-	    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-	    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-	    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-	    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-	    vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
-	    vim.keymap.set({ 'n', 'v' }, '<leader>.', vim.lsp.buf.code_action, opts)
-	    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-	  end,
 	})
 end
 
@@ -120,6 +113,11 @@ function treesitter_config()
 			enable = true
 		}
 	})
+
+	vim.keymap.set('n', '<leader>tu', '<CMD>TSUpdate<CR', {})
+	vim.keymap.set('n', '<leader>td', '<CMD>TSDisable<CR', {})
+	vim.keymap.set('n', '<leader>te', '<CMD>TSEnable<CR', {})
+	vim.keymap.set('n', '<leader>tt', '<CMD>TSToggle<CR', {})
 end
 
 function telescope_config()
@@ -148,15 +146,14 @@ function telescope_config()
 	vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 	vim.keymap.set('n', '<leader>fu', '<CMD>Telescope undo<CR>', {})
 	vim.keymap.set('n', '<leader>fr', '<CMD>Telescope repo list<CR>', {})
-
 end
 
 function devicons_config()
-	require('nvim-web-devicons').setup()
+	require('nvim-web-devicons').setup({})
 end
 
 function dressing_config()
-	require('dressing').setup()
+	require('dressing').setup({})
 end
 
 function neodim_config()
@@ -185,61 +182,76 @@ function dapui_config()
 end
 
 function octo_config()
-	require('octo').setup()
+	require('octo').setup({})
 end
 
 function gitsigns_config()
-	require('gitsigns').setup()
+	require('gitsigns').setup({})
+
+	vim.keymap.set('n', '<leader>gl', '<CMD>Gitsigns blame_line<CR>', {})
+	vim.keymap.set('n', '<leader>gt', '<CMD>Gitsigns toggle_signs<CR>', {})
+	vim.keymap.set('n', '<leader>gr', '<CMD>Gitsigns refresh<CR>', {})
 end
 
 function better_escape_config()
-	require('better_escape').setup()
+	require('better_escape').setup({})
 end
 
 function neoscroll_config()
-	require('neoscroll').setup()
+	require('neoscroll').setup({})
 end
 
 function auto_save_config()
-	require('auto-save').setup()
+	require('auto-save').setup({})
 end
 
 function treesitter_context_config()
-	require('treesitter-context').setup()
+	require('treesitter-context').setup({})
 end
 
 function comment_config()
-	require('mini.comment').setup()
+	require('mini.comment').setup({})
 end
 
 function cursorword_config()
-	require('mini.cursorword').setup()
+	require('mini.cursorword').setup({})
 end
 
 function pairs_config()
-	require('mini.pairs').setup()
+	require('mini.pairs').setup({})
 end
 
 function leetbuddy_config()
 	require('leetbuddy').setup({
 		language = 'ts',
 	})
+
+	vim.keymap.set('n', '<leader>lf', '<CMD>LBQuestions<CR>', {})
+	vim.keymap.set('n', '<leader>ls', '<CMD>LBSubmit<CR>', {})
+	vim.keymap.set('n', '<leader>lt', '<CMD>LBTest<CR>', {})
 end
 
 function nvimtree_config()
-	require('nvim-tree').setup()
+	require('nvim-tree').setup({})
+
+	vim.keymap.set('n', '<leader>nn', '<CMD>NvimTreeToggle<CR>', {})
+	vim.keymap.set('n', '<leader>nf', '<CMD>NvimTreeFocus<CR>', {})
 end
 
 function guess_indent_config()
-	require('guess-indent').setup()
+	require('guess-indent').setup({})
 end
 
 function auto_session_config()
-	require('auto-session').setup()
+	require('auto-session').setup({})
 end
 
 function trouble_config()
-	require('trouble').setup()
+	require('trouble').setup({})
+
+	vim.keymap.set('n', '<leader>tt', '<CMD>TroubleToggle<CR>', {});
+	vim.keymap.set('n', '<leader>td', '<CMD>Trouble document_diagnostics<CR>', {});
+	vim.keymap.set('n', '<leader>tr', '<CMD>TroubleRefresh<CR>', {});
 end
 
 function lualine_config()
@@ -252,41 +264,47 @@ function lualine_config()
 end
 
 function vscode_config()
-	require('vscode').setup()
+	require('vscode').setup({})
 	require('vscode').load()
 end
 
 function neotest_config()
 	require('neotest').setup({
-      		adapters = {
-        		require('neotest-vitest') 
-        	}
-    	})
+		adapters = {
+			require('neotest-vitest') 
+		}
+	})
 end
 
 function chatgpt_config()
-	require('chatgpt').setup()
+	require('chatgpt').setup({})
+
+	vim.keymap.set({'n', 'v'}, '<leader>cc', '<CMD>ChatGPT<CR>', {})
+	vim.keymap.set({'n', 'v'}, '<leader>ca', '<CMD>ChatGPTActAs<CR>', {})
+	vim.keymap.set({'n', 'v'}, '<leader>ce', '<CMD>ChatGPTEditWithInstructions<CR>', {})
+	vim.keymap.set({'n', 'v'}, '<leader>crf', '<CMD>ChatGPTRun fix_bugs<CR>', {})
+	vim.keymap.set({'n', 'v'}, '<leader>cro', '<CMD>ChatGPTRun optimize_code<CR>', {})
+	vim.keymap.set({'n', 'v'}, '<leader>crd', '<CMD>ChatGPTRun docstring<CR>', {})
+	vim.keymap.set({'n', 'v'}, '<leader>cra', '<CMD>ChatGPTRun code_readability_analyses<CR>', {})
 end
 
 function package_info_config()
-	require('package-info').setup()
-end
+	require('package-info').setup({})
 
-function hydra_config()
-	local Hydra = require('hydra')
+	vim.keymap.set('n', '<leader>pi', '<CMD>PackageInfoInstall<CR>', {})
+	vim.keymap.set('n', '<leader>pu', '<CMD>PackageInfoUpdate<CR>', {})
+	vim.keymap.set('n', '<leader>pd', '<CMD>PackageInfoDelete<CR>', {})
+	vim.keymap.set('n', '<leader>ps', '<CMD>PackageInfoShow<CR>', {})
+	vim.keymap.set('n', '<leader>ph', '<CMD>PackageInfoHide<CR>', {})
+	vim.keymap.set('n', '<leader>pv', '<CMD>PackageInfoChangeVersion<CR>', {})
 end
 
 function copilot_config()
 	require('copilot').setup({
 		suggestion = {
 			auto_trigger = true,
-			keymap = {
-				accept = '<M-l>',
-				prev = '<M-[>',
-				next = '<M-]>',
-				dismiss = '<C-]>',
-			},
-		},
+			keymap = { accept = '<S-CR>' }
+		}
 	})
 end
 
@@ -298,6 +316,18 @@ require('packer').startup(function(use)
 	use 'nvim-tree/nvim-web-devicons'
 	use 'L3MON4D3/LuaSnip'
 	use {
+		'VonHeikemen/lsp-zero.nvim',
+		requires = {
+			{'neovim/nvim-lspconfig'},             
+			{'williamboman/mason.nvim'},          
+			{'williamboman/mason-lspconfig.nvim'},
+			{'hrsh7th/nvim-cmp'},
+			{'hrsh7th/cmp-nvim-lsp'},
+			{'L3MON4D3/LuaSnip'},
+		},
+		config = lspconfig_config 
+	}
+	use {
 		'nvim-tree/nvim-tree.lua',
 		config = nvimtree_config
 	}
@@ -305,7 +335,6 @@ require('packer').startup(function(use)
 		'Mofiqul/vscode.nvim',
 		config = vscode_config
 	}
-	-- TODO: add keymaps with hydra
 	use {
 		'vuki656/package-info.nvim',
 		config = package_info_config
@@ -314,13 +343,12 @@ require('packer').startup(function(use)
 		'nmac427/guess-indent.nvim',
 		config = guess_indent_config
 	}
-	-- TODO: add keymaps with hydra
 	use {
 		'jackMort/ChatGPT.nvim',
 		config = chatgpt_config
 	}
 	-- TODO: doesn't work (no test suite found)
-	-- TODO: add keymaps with hydra
+	-- TODO: add keymaps
 	use {
 		'nvim-neotest/neotest',
 		requires = {
@@ -333,7 +361,6 @@ require('packer').startup(function(use)
 		'nvim-lualine/lualine.nvim',
 		config = lualine_config
 	}
-	-- TODO: add keymaps with hydra
 	use {
 		'folke/trouble.nvim',
 		config = trouble_config
@@ -342,7 +369,6 @@ require('packer').startup(function(use)
 		'Pocco81/auto-save.nvim',
 		config = auto_save_config
 	}
-	-- TODO: sometimes works sometimes doesn't
 	use {
 		'rmagatti/auto-session',
 		config = auto_session_config
@@ -351,17 +377,16 @@ require('packer').startup(function(use)
 		'max397574/better-escape.nvim',
 		config = better_escape_config
 	}
-	-- TODO: add keymaps with hydra
+	-- TODO: add keymaps
 	use {
 		'pwntester/octo.nvim',
 		config = octo_config
 	}
-	-- TODO: add keymaps with hydra
 	use {
 		'lewis6991/gitsigns.nvim',
 		config = gitsigns_config
 	}
-	-- TODO: add keymaps with hydra
+	-- TODO: add keymaps
 	use {
 		'mfussenegger/nvim-dap',
 		requires = {
@@ -374,7 +399,6 @@ require('packer').startup(function(use)
 		'stevearc/dressing.nvim',
 		config = dressing_config
 	}
-	-- TODO: add keymaps with hydra
 	use {
 		'nvim-treesitter/nvim-treesitter',
 		run = ':TSUpdate',
@@ -384,18 +408,6 @@ require('packer').startup(function(use)
 		'nvim-treesitter/nvim-treesitter-context',
 		config = treesitter_context_config
 	}
-	-- TODO: add keymaps with hydra
-	use {
-	  'williamboman/mason.nvim',
-		requires = {
-			'williamboman/mason-lspconfig.nvim',
-			'neovim/nvim-lspconfig',
-			'ms-jpq/coq_nvim',
-		},
-		config = lspconfig_config
-	}
-	-- TODO: add more keymaps
-	-- TODO: rewrite keymaps to hydra
 	use {
 		'nvim-telescope/telescope.nvim',
 		requires = {
@@ -422,21 +434,15 @@ require('packer').startup(function(use)
 	  branch = 'v2',
 	  config = neodim_config
 	}
-	-- TODO: add keymaps with hydra
 	use {
 		'zbirenbaum/copilot.lua',
 		cmd = 'Copilot',
 		event = 'InsertEnter',
 		config = copilot_config,
 	}
-	-- TODO: add keymaps with hydra
 	use {
 		'Dhanus3133/Leetbuddy.nvim',
 		config = leetbuddy_config
-	}
-	use {
-		'anuvyklack/hydra.nvim',
-		config = hydra_config
 	}
 end)
 
