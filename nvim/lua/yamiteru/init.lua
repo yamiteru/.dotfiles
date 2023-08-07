@@ -1,3 +1,4 @@
+vim.o.cmdheight = 0
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
@@ -32,61 +33,41 @@ vim.opt.fileencoding = 'utf-8'
 vim.scriptencoding = 'utf-8'
 vim.g.coq_settings = { auto_start = 'shut-up' }
 
-function mason_config()
-	require('mason').setup()
-	require('mason-tool-installer').setup({
-	  ensure_installed = {
-		  'zls',
-		  'zk',
-		  'yaml-language-server',
-		  'typescript-language-server',
-		  'tailwindcss-language-server',
-		  'svelte-language-server',
-		  'stylelint-lsp',
-		  'rust-analyzer',
-		  'prisma-language-server',
-		  'lua-language-server',
-		  'json-lsp',
-		  'html-lsp',
-		  'eslint-lsp',
-		  'emmet-ls',
-		  'dockerfile-language-server',
-		  'docker-compose-language-service',
-		  'diagnostic-languageserver',
-		  'css-lsp',
-		  'gopls',
-		  'ocaml-lsp',
-		  'js-debug-adapter',
-		  'go-debug-adapter',
-		  'stylelint',
-		  'markdownlint',
-		  'editorconfig-checker',
-		  'codespell',
-		  'commitlint',
-		  'eslint_d',
-		  'golangci-lint',
-		  'jsonlint',
-		  'luacheck',
-		  'markuplint',
-		  'sonarlint-language-server',
-		  'yamllint',
-		  'prettier',
-		  'rustywind'
-
-	  },
-	  auto_update = true,
-	  run_on_start = true,
-	  start_delay = 3000,
-	  debounce_hours = 24,
-	})
-end
-
 function lspconfig_config()
-	local lsp = require('lspconfig')
-	local coq = require('coq')
+	require('mason').setup()
+	require('mason-lspconfig').setup({
+		ensure_installed = { 
+			'lua_ls', 
+			'cssls',
+			'html',
+			'dockerls',
+			'eslint',
+			'emmet_ls',
+			'graphql',
+			'jsonls',
+			'tsserver',
+			'remark_ls',
+			'prismals',
+			'pylsp',
+			'sqlls',
+			'stylelint_lsp',
+			'svelte',
+			'taplo',
+			'tailwindcss',
+			'yamlls',
+			'zls',
+			'rust_analyzer' 
+		},
+		automatic_installation = true
+	})
 
-	lsp.tsserver.setup()
-	lsp.tsserver.setup(coq.lsp_ensure_capabilities())
+	require('mason-lspconfig').setup_handlers {
+			function (server_name)
+					require('lspconfig')[server_name].setup(require('coq').lsp_ensure_capabilities())
+			end
+	}
+	
+	local lsp = require('lspconfig')
 
 	vim.api.nvim_create_autocmd('LspAttach', {
 	  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -296,7 +277,17 @@ function hydra_config()
 end
 
 function copilot_config()
-	require('copilot').setup()
+	require('copilot').setup({
+		suggestion = {
+			auto_trigger = true,
+			keymap = {
+				accept = '<M-l>',
+				prev = '<M-[>',
+				next = '<M-]>',
+				dismiss = '<C-]>',
+			},
+		},
+	})
 end
 
 require('packer').startup(function(use)
@@ -328,7 +319,7 @@ require('packer').startup(function(use)
 		'jackMort/ChatGPT.nvim',
 		config = chatgpt_config
 	}
-	-- TODO: doesn't work but should be fixed once LSP works
+	-- TODO: doesn't work (no test suite found)
 	-- TODO: add keymaps with hydra
 	use {
 		'nvim-neotest/neotest',
@@ -342,7 +333,7 @@ require('packer').startup(function(use)
 		'nvim-lualine/lualine.nvim',
 		config = lualine_config
 	}
-	-- TODO: test if it works
+	-- TODO: add keymaps with hydra
 	use {
 		'folke/trouble.nvim',
 		config = trouble_config
@@ -351,6 +342,7 @@ require('packer').startup(function(use)
 		'Pocco81/auto-save.nvim',
 		config = auto_save_config
 	}
+	-- TODO: sometimes works sometimes doesn't
 	use {
 		'rmagatti/auto-session',
 		config = auto_session_config
@@ -369,7 +361,7 @@ require('packer').startup(function(use)
 		'lewis6991/gitsigns.nvim',
 		config = gitsigns_config
 	}
-	-- TODO: test if it works
+	-- TODO: add keymaps with hydra
 	use {
 		'mfussenegger/nvim-dap',
 		requires = {
@@ -397,14 +389,9 @@ require('packer').startup(function(use)
 	  'williamboman/mason.nvim',
 		requires = {
 			'williamboman/mason-lspconfig.nvim',
-			'WhoIsSethDaniel/mason-tool-installer.nvim',
+			'neovim/nvim-lspconfig',
+			'ms-jpq/coq_nvim',
 		},
-		config = mason_config
-	}
-	-- TODO: doesn't work
-	use {
-		'neovim/nvim-lspconfig',
-		'ms-jpq/coq_nvim',
 		config = lspconfig_config
 	}
 	-- TODO: add more keymaps
@@ -429,14 +416,13 @@ require('packer').startup(function(use)
 		'echasnovski/mini.pairs',
 		config = pairs_config
 	}
-	-- TODO: doesn't work but should be fixed once LSP works
 	use {
 	  'zbirenbaum/neodim',
 	  event = 'LspAttach',
 	  branch = 'v2',
 	  config = neodim_config
 	}
-	-- TODO: doesn't suggest anything
+	-- TODO: add keymaps with hydra
 	use {
 		'zbirenbaum/copilot.lua',
 		cmd = 'Copilot',
