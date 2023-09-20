@@ -39,18 +39,31 @@ function lspconfig_config()
 	local cmp_action = require('lsp-zero').cmp_action()
 
 	cmp.setup({
+		sources = {
+			{ name = 'nvim_lsp' },
+			{ name = 'luasnip' },
+			{ name = 'buffer' },
+			{ name = 'path' }
+    },
 		mapping = {
 			['<CR>'] = cmp.mapping.confirm({select = true}),
 			['<Tab>'] = cmp_action.luasnip_supertab(),
 			['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
-		}
+		},
+		window = {
+			completion = cmp.config.window.bordered(),
+			documentation = cmp.config.window.bordered(),
+    },
+		snippet = {
+			expand = function(args)
+				require('luasnip').lsp_expand(args.body)
+			end
+    }
 	})
 
 	lsp.on_attach(function(client, bufnr)
 		lsp.default_keymaps({buffer = bufnr})
 	end)
-
-	lsp.setup({})
 
 	require('mason').setup({})
 	require('mason-lspconfig').setup({
@@ -64,7 +77,7 @@ function lspconfig_config()
 			'graphql',
 			'jsonls',
 			'tsserver',
-			'remark_ls',
+			'marksman',
 			'prismals',
 			'pylsp',
 			'sqlls',
@@ -78,6 +91,8 @@ function lspconfig_config()
 		},
 		automatic_installation = true
 	})
+
+	lsp.setup({})
 end
 
 function treesitter_config()
@@ -152,14 +167,10 @@ function devicons_config()
 	require('nvim-web-devicons').setup({})
 end
 
-function dressing_config()
-	require('dressing').setup({})
-end
-
 function neodim_config()
 	require('neodim').setup({
-		refresh_delay = 500,
-		alpha = .75,
+		refresh_delay = 2500,
+		alpha = .5,
 		blend_color = '#000000',
 		hide = { underline = true, virtual_text = true, signs = true }
 	})
@@ -195,10 +206,6 @@ end
 
 function better_escape_config()
 	require('better_escape').setup({})
-end
-
-function neoscroll_config()
-	require('neoscroll').setup({})
 end
 
 function auto_save_config()
@@ -242,10 +249,6 @@ function guess_indent_config()
 	require('guess-indent').setup({})
 end
 
-function auto_session_config()
-	require('auto-session').setup({})
-end
-
 function trouble_config()
 	require('trouble').setup({})
 
@@ -266,14 +269,6 @@ end
 function vscode_config()
 	require('vscode').setup({})
 	require('vscode').load()
-end
-
-function neotest_config()
-	require('neotest').setup({
-		adapters = {
-			require('neotest-vitest') 
-		}
-	})
 end
 
 function chatgpt_config()
@@ -314,7 +309,6 @@ require('packer').startup(function(use)
 	use 'MunifTanjim/nui.nvim'
 	use 'jghauser/mkdir.nvim'
 	use 'nvim-tree/nvim-web-devicons'
-	use 'L3MON4D3/LuaSnip'
 	use {
 		'VonHeikemen/lsp-zero.nvim',
 		requires = {
@@ -323,6 +317,8 @@ require('packer').startup(function(use)
 			{'williamboman/mason-lspconfig.nvim'},
 			{'hrsh7th/nvim-cmp'},
 			{'hrsh7th/cmp-nvim-lsp'},
+			{'hrsh7th/cmp-buffer'},
+      {'hrsh7th/cmp-path'},
 			{'L3MON4D3/LuaSnip'},
 		},
 		config = lspconfig_config 
@@ -370,10 +366,6 @@ require('packer').startup(function(use)
 		config = auto_save_config
 	}
 	use {
-		'rmagatti/auto-session',
-		config = auto_session_config
-	}
-	use {
 		'max397574/better-escape.nvim',
 		config = better_escape_config
 	}
@@ -393,11 +385,6 @@ require('packer').startup(function(use)
 			'rcarriga/nvim-dap-ui',
 		},
 		config = dapui_config
-	}
-	-- TODO: test if it works
-	use {
-		'stevearc/dressing.nvim',
-		config = dressing_config
 	}
 	use {
 		'nvim-treesitter/nvim-treesitter',
@@ -446,3 +433,23 @@ require('packer').startup(function(use)
 	}
 end)
 
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+vim.keymap.set('n', '<Leader>,', ':nohlsearch<CR>')
+vim.keymap.set('i', 'jj', '<ESC>')
+vim.keymap.set('i', 'jk', '<ESC>')
+
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
+
+vim.keymap.set('n', '<leader>wc', '<C-W>c')
+vim.keymap.set('n', '<leader>wv', '<C-W>v')
+vim.keymap.set('n', '<leader>ws', '<C-W>s')
+vim.keymap.set('n', '<leader>wh', '<C-W>h')
+vim.keymap.set('n', '<leader>wj', '<C-W>j')
+vim.keymap.set('n', '<leader>wk', '<C-W>k')
+vim.keymap.set('n', '<leader>wl', '<C-W>l')
+vim.keymap.set('n', '<leader>wH', '<C-W>H')
+vim.keymap.set('n', '<leader>wJ', '<C-W>J')
+vim.keymap.set('n', '<leader>wK', '<C-W>K')
+vim.keymap.set('n', '<leader>wL', '<C-W>L')
