@@ -61,14 +61,19 @@ function lspconfig_config()
     }
 	})
 
+	vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+	vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+	vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+	vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
 	lsp.on_attach(function(client, bufnr)
 		lsp.default_keymaps({buffer = bufnr})
 	end)
 
-	require('mason').setup({})
+	require('mason').setup()
 	require('mason-lspconfig').setup({
-		ensure_installed = { 
-			'lua_ls', 
+		ensure_installed = {
+			'lua_ls',
 			'cssls',
 			'html',
 			'dockerls',
@@ -87,7 +92,7 @@ function lspconfig_config()
 			'tailwindcss',
 			'yamlls',
 			'zls',
-			'rust_analyzer' 
+			'rust_analyzer'
 		},
 		automatic_installation = true
 	})
@@ -97,8 +102,62 @@ end
 
 function treesitter_config()
 	require('nvim-treesitter.configs').setup({
-		indent = { enable = true },
-		ensure_installed = { 
+		auto_install = true,
+		highlight = { enable = true },
+    indent = { enable = true },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = '<c-space>',
+        node_incremental = '<c-space>',
+        scope_incremental = '<c-s>',
+        node_decremental = '<M-space>',
+      },
+    },
+    textobjects = {
+      select = {
+        enable = true,
+        lookahead = true,
+        keymaps = {
+          ['aa'] = '@parameter.outer',
+          ['ia'] = '@parameter.inner',
+          ['af'] = '@function.outer',
+          ['if'] = '@function.inner',
+          ['ac'] = '@class.outer',
+          ['ic'] = '@class.inner',
+        },
+      },
+      move = {
+        enable = true,
+        set_jumps = true,
+        goto_next_start = {
+          [']m'] = '@function.outer',
+          [']]'] = '@class.outer',
+        },
+        goto_next_end = {
+          [']M'] = '@function.outer',
+          [']['] = '@class.outer',
+        },
+        goto_previous_start = {
+          ['[m'] = '@function.outer',
+          ['[['] = '@class.outer',
+        },
+        goto_previous_end = {
+          ['[M'] = '@function.outer',
+          ['[]'] = '@class.outer',
+        },
+      },
+      swap = {
+        enable = true,
+        swap_next = {
+          ['<leader>a'] = '@parameter.inner',
+        },
+        swap_previous = {
+          ['<leader>A'] = '@parameter.inner',
+        },
+      },
+    },
+		ensure_installed = {
 			'lua',
 			'css',
 			'dockerfile',
@@ -123,16 +182,12 @@ function treesitter_config()
 			'yaml',
 			'zig'
 		},
-		auto_install = true,
-		highlight = {
-			enable = true
-		}
 	})
 
-	vim.keymap.set('n', '<leader>tu', '<CMD>TSUpdate<CR', {})
-	vim.keymap.set('n', '<leader>td', '<CMD>TSDisable<CR', {})
-	vim.keymap.set('n', '<leader>te', '<CMD>TSEnable<CR', {})
-	vim.keymap.set('n', '<leader>tt', '<CMD>TSToggle<CR', {})
+	vim.keymap.set('n', '<leader>tu', '<CMD>TSUpdate<CR>', {})
+	vim.keymap.set('n', '<leader>td', '<CMD>TSDisable<CR>', {})
+	vim.keymap.set('n', '<leader>te', '<CMD>TSEnable<CR>', {})
+	vim.keymap.set('n', '<leader>tt', '<CMD>TSToggle<CR>', {})
 end
 
 function telescope_config()
@@ -230,7 +285,7 @@ end
 
 function leetbuddy_config()
 	require('leetbuddy').setup({
-		language = 'ts',
+		language = 'rs',
 	})
 
 	vim.keymap.set('n', '<leader>lf', '<CMD>LBQuestions<CR>', {})
@@ -312,8 +367,8 @@ require('packer').startup(function(use)
 	use {
 		'VonHeikemen/lsp-zero.nvim',
 		requires = {
-			{'neovim/nvim-lspconfig'},             
-			{'williamboman/mason.nvim'},          
+			{'neovim/nvim-lspconfig'},
+			{'williamboman/mason.nvim'},
 			{'williamboman/mason-lspconfig.nvim'},
 			{'hrsh7th/nvim-cmp'},
 			{'hrsh7th/cmp-nvim-lsp'},
