@@ -1,9 +1,0 @@
-{
-  "snippets.ultisnips.pythonPrompt": false,
-  "svelte.enable-ts-plugin": true,
-	"workspace.ignoredFolders": [
-		"$HOME",
-		"$HOME/.cargo/**",
-		"$HOME/.rustup/**"
-	]
-}
