@@ -1,15 +1,6 @@
-alias .='emacsclient -s main -n -q -a emacs -c &'
-
-alias docker-compose='docker compose'
+alias .='nvim'
 
 alias c='clear'
-
-alias ls='ls --color=auto'
-alias ll='ls -la'
-
-alias pm='sudo pacman'
-
-alias drm='docker rm -vf $(docker ps -aq) && docker rmi -f $(docker images -aq)'
 
 alias python='python3'
 alias pip='pip3'
