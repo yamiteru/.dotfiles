@@ -1,9 +1,6 @@
+-- Who is your leader, peasant?!
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
--- No thank you
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 
 -- Sharing is caring
 vim.opt.clipboard = "unnamedplus"
@@ -32,6 +29,10 @@ vim.opt.signcolumn = "yes:1"
 vim.opt.number = false
 vim.opt.relativenumber = true
 
+-- No thank you
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Make your case
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -40,23 +41,23 @@ vim.opt.smartcase = true
 vim.opt.mouse = ""
 
 -- Arrows? Never heard of em!
--- vim.keymap.set("n", "<up>", "<nop>", { noremap = true })
--- vim.keymap.set("n", "<down>", "<nop>", { noremap = true })
--- vim.keymap.set("n", "<left>", "<nop>", { noremap = true })
--- vim.keymap.set("n", "<right>", "<nop>", { noremap = true })
--- vim.keymap.set("i", "<up>", "<nop>", { noremap = true })
--- vim.keymap.set("i", "<down>", "<nop>", { noremap = true })
--- vim.keymap.set("i", "<left>", "<nop>", { noremap = true })
--- vim.keymap.set("i", "<right>", "<nop>", { noremap = true })
--- vim.keymap.set("c", "<up>", "<nop>", { noremap = true })
--- vim.keymap.set("c", "<down>", "<nop>", { noremap = true })
--- vim.keymap.set("c", "<left>", "<nop>", { noremap = true })
--- vim.keymap.set("c", "<right>", "<nop>", { noremap = true })
+vim.keymap.set("", "<up>", "<nop>", { noremap = true })
+vim.keymap.set("", "<down>", "<nop>", { noremap = true })
+vim.keymap.set("i", "<up>", "<nop>", { noremap = true })
+vim.keymap.set("i", "<down>", "<nop>", { noremap = true })
 
 -- Pinky promise?
 vim.keymap.set("n", "<leader>wc", "<C-W>c")
 vim.keymap.set("n", "<leader>wv", "<C-W>v<C-W>l")
 vim.keymap.set("n", "<leader>ws", "<C-W>s<C-W>j")
+vim.keymap.set("n", "<leader>wh", "<C-W>h")
+vim.keymap.set("n", "<leader>wj", "<C-W>j")
+vim.keymap.set("n", "<leader>wk", "<C-W>k")
+vim.keymap.set("n", "<leader>wl", "<C-W>l")
+vim.keymap.set("n", "<leader>wH", "<C-W>H")
+vim.keymap.set("n", "<leader>wJ", "<C-W>J")
+vim.keymap.set("n", "<leader>wK", "<C-W>K")
+vim.keymap.set("n", "<leader>wL", "<C-W>L")
 
 -- You haven't seen anything
 vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>")
@@ -64,12 +65,22 @@ vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>")
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 	vim.lsp.diagnostic.on_publish_diagnostics,
 	{
-		signs = true,
-		underline = true,
 		virtual_text = false,
-		update_in_insert = false
+		signs = true,
+		update_in_insert = false,
+		underline = true,
 	}
 )
+
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -85,157 +96,18 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	"nvim-lua/plenary.nvim",
 
-	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {},
-		config = function()
-			vim.cmd [[colorscheme tokyonight-day]]
-		end
-	},
+	{ "yamiteru/brutalist.nvim", config = function ()
+		vim.cmd 'colorscheme brutalist'
+	end },
 
-	{
-		"jghauser/mkdir.nvim"
-	},
-
-	{
-		"max397574/better-escape.nvim",
-		opts = {}
-	},
-
-	{
-		"echasnovski/mini.move",
-		opts = {}
-	},
-
-	{
-		"echasnovski/mini.bracketed",
-		opts = {}
-	},
-
-	{
-		"echasnovski/mini.jump",
-		opts = {}
-	},
-
-	{
-		"echasnovski/mini.bufremove",
-		opts = {}
-	},
-
-	{
-		"echasnovski/mini.trailspace",
-		opts = {}
-	},
-
-	-- TODO: extract settings here
-	-- {
-	-- 	"echasnovski/mini.basics",
-	-- 	opts = {
-	-- 		options = {
-	-- 			basic = true,
-	-- 			-- TODO: what does this do?
-	-- 			extra_ui = true,
-	-- 			-- TODO: what are the options?
-	-- 			win_borders = 'solid',
-	-- 		},
-	-- 		mappings = {
-	-- 			basic = true,
-	-- 			option_toggle_prefix = [[\]],
-	-- 			-- TODO: why does resize not work?
-	-- 			windows = true,
-	-- 			move_with_alt = true
-	-- 		},
-	-- 		autocommands = {
-	-- 			basic = true,
-	-- 			relnum_in_visual_mode = true
-	-- 		},
-	-- 		silent = true
-	-- 	}
-	-- },
-
-	{
-		-- TODO: how do I change the content?
-		"echasnovski/mini.statusline",
-		opts = {
-			use_icons = false
-		}
-	},
-
-	{
-		"echasnovski/mini.surround",
-		opts = {
-			highlight_duration = 250,
-			respect_selection_type = true,
-			silent = true,
-			-- TODO: how are search methods different?
-			search_method = 'cover'
-		}
-	},
-
-	{
-		-- TODO: how to create a session file if it doesn't exist?
-		"echasnovski/mini.sessions",
-		opts = {
-			autoread = true,
-			verbose = {
-				read = nil,
-				write = nil,
-				delete = nil
-			}
-		}
-	},
-
-	{
-		"echasnovski/mini.splitjoin",
-		opts = {
-			detect = {
-				brackets = { '%b()', '%b[]', '%b{}' },
-				separator = ','
-			}
-		}
-	},
-
-	{
-		"echasnovski/mini.comment",
-		opts = {
-			options = {
-				ignore_blank_line = true
-			}
-		}
-	},
-
-	{
-		"echasnovski/mini.cursorword",
-		opts = {
-			delay = 250
-		}
-	},
-
-	{
-		"echasnovski/mini.pairs",
-		opts = {
-			modes = {
-				insert = true,
-				command = true,
-				terminal = true
-			}
-		}
-	},
-
-	-- TODO: why does the new version not work?
-	-- {
-	-- 	"supermaven-inc/supermaven-nvim",
-	-- 	opts = {
-	-- 		log_level = "info",
-	-- 		color = {
-	-- 			suggestion_color = "#ffffff",
-	-- 			cterm = 244,
-	-- 		}
-	-- 	}
-	-- },
+	"jghauser/mkdir.nvim",
+	{ "max397574/better-escape.nvim", opts = {} },
+	{ "echasnovski/mini.comment",     opts = { silent = true } },
+	{ "echasnovski/mini.cursorword",  opts = { silent = true } },
+	{ "echasnovski/mini.move",        opts = { silent = true } },
+	{ "echasnovski/mini.pairs",       opts = { silent = true } },
 
 	{
 		"shortcuts/no-neck-pain.nvim",
@@ -268,7 +140,6 @@ require("lazy").setup({
 		keys = {
 			{ "<leader>m", "<cmd>Grapple toggle<cr>",          desc = "Grapple toggle tag" },
 			{ "<leader>M", "<cmd>Grapple toggle_tags<cr>",     desc = "Grapple open tags window" },
-			-- TODO: change to [ and ]
 			{ "<leader>n", "<cmd>Grapple cycle_tags next<cr>", desc = "Grapple cycle next tag" },
 			{ "<leader>p", "<cmd>Grapple cycle_tags prev<cr>", desc = "Grapple cycle previous tag" },
 			{ "<c-h>",     "<cmd>Grapple select index=1<cr>",  desc = "Select first tag" },
@@ -281,14 +152,13 @@ require("lazy").setup({
 	{
 		"folke/trouble.nvim",
 		opts = {
-			position = "bottom",
+			position = "right",
 			mode = "document_diagnostics",
 			severity = vim.diagnostic.severity.ERROR,
 			padding = false,
 			multiline = false
 		},
 		keys = {
-			-- TODO: change keybindings
 			{
 				"<leader>xx",
 				"<cmd>Trouble diagnostics toggle<cr>",
@@ -304,6 +174,21 @@ require("lazy").setup({
 				"<cmd>Trouble symbols toggle focus=false<cr>",
 				desc = "Symbols (Trouble)",
 			},
+			{
+				"<leader>cl",
+				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
+			},
+			{
+				"<leader>xL",
+				"<cmd>Trouble loclist toggle<cr>",
+				desc = "Location List (Trouble)",
+			},
+			{
+				"<leader>xQ",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
 		},
 	},
 
@@ -313,7 +198,6 @@ require("lazy").setup({
 			{ "nvim-telescope/telescope-fzf-native.nvim",  build = "make" },
 			{ "nvim-telescope/telescope-file-browser.nvim" }
 		},
-		-- TODO: use more minimalist layout
 		config = function()
 			require("telescope").setup({
 				extensions = {
@@ -327,6 +211,24 @@ require("lazy").setup({
 						hijack_netrw = true,
 						quiet = true,
 					},
+				},
+				defaults = {
+					-- sorting_strategy = "ascending",
+					-- layout_strategy = "center",
+					-- border = false,
+					-- color_devicons = false,
+					-- prompt_title = "",
+					-- results_title = "",
+					-- preview_title = "",
+					-- prompt_prefix = "",
+					-- selection_caret = "",
+					-- entry_prefix = "",
+					-- multi_icon = "",
+					-- preview = { msg_bg_fillchar = ' ' },
+					-- layout_config = {
+					-- 	anchor = "N",
+					-- 	width = 100,
+					-- },
 				}
 			})
 
@@ -341,6 +243,34 @@ require("lazy").setup({
 	},
 
 	{
+		"nvim-treesitter/nvim-treesitter",
+		version = false,
+		build = ":TSUpdate",
+		cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+		init = function(plugin)
+			require("lazy.core.loader").add_to_rtp(plugin)
+			require("nvim-treesitter.query_predicates")
+		end,
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				ensure_installed = {
+					"c",
+					"lua",
+					"vim",
+					"vimdoc",
+					"query"
+				},
+				auto_install = true,
+				highlight = { enable = true },
+				indent = { enable = true },
+				incremental_selection = {
+					enable = true,
+				}
+			})
+		end
+	},
+
+	{
 		"williamboman/mason.nvim",
 		dependencies = {
 			"williamboman/mason-lspconfig.nvim",
@@ -350,13 +280,8 @@ require("lazy").setup({
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/nvim-cmp",
-			"L3MON4D3/LuaSnip",
-			"ray-x/cmp-treesitter",
-			"saadparwaiz1/cmp_luasnip",
-			"octaltree/cmp-look",
-			"mfussenegger/nvim-dap",
-			"rcarriga/cmp-dap",
-			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"hrsh7th/cmp-vsnip",
+			"hrsh7th/vim-vsnip"
 		},
 		config = function()
 			require("mason").setup({
@@ -393,110 +318,48 @@ require("lazy").setup({
 			local cmp = require 'cmp'
 
 			cmp.setup({
-				preselect = cmp.PreselectMode.Item,
-				keyword_length = 2,
 				snippet = {
 					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
+						vim.fn["vsnip#anonymous"](args.body)
 					end,
 				},
 				window = {
 					completion = cmp.config.window.bordered(),
 					documentation = cmp.config.window.bordered(),
 				},
-				view = {
-					entries = {
-						name = "custom",
-						selection_order = "near_cursor",
-						follow_cursor = true,
-					},
-				},
-				mapping = {
-					["<C-y>"] = cmp.mapping(
-						cmp.mapping.confirm({
-							select = true,
-							behavior = cmp.ConfirmBehavior.Insert,
-						}),
-						{ "i", "c" }
-					),
-					["<C-n>"] = cmp.mapping.select_next_item({
-						behavior = cmp.ConfirmBehavior.Insert,
-					}),
-					["<C-p>"] = cmp.mapping.select_prev_item({
-						behavior = cmp.ConfirmBehavior.Insert,
-					}),
-					["<C-b>"] = cmp.mapping.scroll_docs(-5),
-					["<C-f>"] = cmp.mapping.scroll_docs(5),
-					["<C-q>"] = cmp.mapping.abort(),
-				},
-				matching = {
-					disallow_fuzzy_matching = true,
-					disallow_fullfuzzy_matching = true,
-					disallow_partial_fuzzy_matching = true,
-					disallow_partial_matching = false,
-					disallow_prefix_unmatching = true,
-				},
-				sources = cmp.config.sources({
-					{
-						name = "luasnip",
-						group_index = 1,
-						option = { use_show_condition = true },
-						entry_filter = function()
-							local context = require("cmp.config.context")
-							return not context.in_treesitter_capture("string")
-									and not context.in_syntax_group("String")
-						end,
-					},
-					{
-						name = "nvim_lsp",
-						group_index = 2,
-					},
-					{
-						name = "treesitter",
-						keyword_length = 4,
-						group_index = 4,
-					},
-					{
-						name = "path",
-						keyword_length = 4,
-						group_index = 4,
-					},
-					{
-						name = "buffer",
-						keyword_length = 3,
-						group_index = 5,
-					},
-					{
-						name = 'look',
-						keyword_length = 2,
-						group_index = 6,
-						option = {
-							convert_case = true,
-							loud = true
-						}
-					},
-					{
-						name = "nvim_lsp_signature_help",
-						max_item_count = 5,
-						group_index = 6,
-					},
+				mapping = cmp.mapping.preset.insert({
+					['<C-b>'] = cmp.mapping.scroll_docs(-4),
+					['<C-f>'] = cmp.mapping.scroll_docs(4),
+					['<C-Space>'] = cmp.mapping.complete(),
+					['<C-e>'] = cmp.mapping.abort(),
+					['<CR>'] = cmp.mapping.confirm({ select = true }),
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+						elseif vim.fn["vsnip#available"](1) == 1 then
+							feedkey("<Plug>(vsnip-expand-or-jump)", "")
+						elseif has_words_before() then
+							cmp.complete()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+
+					["<S-Tab>"] = cmp.mapping(function()
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+							feedkey("<Plug>(vsnip-jump-prev)", "")
+						end
+					end, { "i", "s" }),
 				}),
-				sorting = {
-					priority_weight = 2,
-					comparators = {
-						cmp.config.compare.offset,
-						cmp.config.compare.exact,
-						cmp.config.compare.score,
-						cmp.config.compare.recently_used,
-						cmp.config.compare.kind,
-						cmp.config.compare.sort_text,
-						cmp.config.compare.length,
-						cmp.config.compare.order,
-					},
-				},
-				performance = {
-					max_view_entries = 20,
-				},
+				sources = cmp.config.sources({
+					{ name = 'nvim_lsp', group_index = 2 },
+					{ name = 'vsnip', group_index = 2 },
+					{ name = "supermaven" }
+				}, {
+					{ name = 'buffer' },
+				})
 			})
 
 			cmp.setup.cmdline({ '/', '?' }, {
@@ -540,28 +403,7 @@ require("lazy").setup({
 	},
 
 	{
-		"nvim-treesitter/nvim-treesitter",
-		version = false,
-		build = ":TSUpdate",
-		cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
-		init = function(plugin)
-			require("lazy.core.loader").add_to_rtp(plugin)
-			require("nvim-treesitter.query_predicates")
-		end,
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = {
-					"lua",
-					"vim",
-					"vimdoc",
-				},
-				auto_install = true,
-				highlight = { enable = true },
-				indent = { enable = true },
-				incremental_selection = {
-					enable = true,
-				}
-			})
-		end
+		"supermaven-inc/supermaven-nvim",
+		opts = {}
 	},
 })

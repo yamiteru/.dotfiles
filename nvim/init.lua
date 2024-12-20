@@ -1,1 +1,2 @@
-require("yamiteru")
+require("config.globals")
+require("config.lazy")
