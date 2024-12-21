@@ -9,7 +9,7 @@ function config()
 	require("mason-lspconfig").setup_handlers({
 		function(server_name)
 			require("lspconfig")[server_name].setup({
-				capabiities = capabilities
+				capabilities = capabilities
 			})
 		end
 	})

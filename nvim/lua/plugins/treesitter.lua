@@ -6,11 +6,10 @@ function config()
 			"vimdoc",
 		},
 		auto_install = true,
-		highlight = { enable = true },
 		indent = { enable = true },
 		highlight = {
 			enable = true,
-			disable = function(lang, bufnr)
+			disable = function(_, bufnr)
         return vim.api.nvim_buf_line_count(bufnr) > 5000
       end,
 			additional_vim_regex_highlighting = false,

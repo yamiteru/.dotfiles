@@ -6,9 +6,13 @@ return {
 		ensure_installed = {
 			"js-debug-adapter",
 			"codespell",
+			"lua-language-server",
+			"stylua",
 		},
 	},
   cmd = "MasonToolsUpdate",
   event = "BufReadPre",
-  dependencies = "williamboman/mason.nvim",
+  dependencies = {
+		"williamboman/mason.nvim"
+	},
 }

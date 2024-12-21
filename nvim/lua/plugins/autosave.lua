@@ -1,5 +1,10 @@
 return {
 	"Pocco81/auto-save.nvim",
-	opts = {},
-	event = { "BufReadPost", "BufNewFile" },
+	opts = {
+		debounce_delay = 1000
+	},
+	event = {
+		"BufReadPost",
+		"BufNewFile"
+	},
 }

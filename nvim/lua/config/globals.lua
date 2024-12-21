@@ -1,6 +1,12 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- No status line
+vim.opt.laststatus = 3
+vim.o.ls = 0
+vim.o.stl = "%{repeat(' ',winwidth('.'))}"
+vim.o.cmdheight = 0
+
 -- No thank you
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -25,12 +31,27 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
-vim.opt.fillchars = { eob = ' ' }
+vim.opt.fillchars = {
+	eob = ' ',
+	horiz = ' ',
+	horizup = ' ',
+	horizdown = ' ',
+	vert = ' ',
+	vertleft = ' ',
+	vertright = ' ',
+	verthoriz = ' ',
+	fold = ' ',
+	foldopen = ' ',
+	foldclose = ' ',
+	foldsep = ' ',
+	diff = ' ',
+	lastline = ' ',
+}
 
 -- Show me thy numbers!
 vim.opt.signcolumn = "yes:1"
 vim.opt.number = false
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Make your case
 vim.opt.ignorecase = true
@@ -40,18 +61,18 @@ vim.opt.smartcase = true
 vim.opt.mouse = ""
 
 -- Arrows? Never heard of em!
--- vim.keymap.set("n", "<up>", "<nop>", { noremap = true })
--- vim.keymap.set("n", "<down>", "<nop>", { noremap = true })
--- vim.keymap.set("n", "<left>", "<nop>", { noremap = true })
--- vim.keymap.set("n", "<right>", "<nop>", { noremap = true })
--- vim.keymap.set("i", "<up>", "<nop>", { noremap = true })
--- vim.keymap.set("i", "<down>", "<nop>", { noremap = true })
--- vim.keymap.set("i", "<left>", "<nop>", { noremap = true })
--- vim.keymap.set("i", "<right>", "<nop>", { noremap = true })
--- vim.keymap.set("c", "<up>", "<nop>", { noremap = true })
--- vim.keymap.set("c", "<down>", "<nop>", { noremap = true })
--- vim.keymap.set("c", "<left>", "<nop>", { noremap = true })
--- vim.keymap.set("c", "<right>", "<nop>", { noremap = true })
+vim.keymap.set("n", "<up>", "<nop>", { noremap = true })
+vim.keymap.set("n", "<down>", "<nop>", { noremap = true })
+vim.keymap.set("n", "<left>", "<nop>", { noremap = true })
+vim.keymap.set("n", "<right>", "<nop>", { noremap = true })
+vim.keymap.set("i", "<up>", "<nop>", { noremap = true })
+vim.keymap.set("i", "<down>", "<nop>", { noremap = true })
+vim.keymap.set("i", "<left>", "<nop>", { noremap = true })
+vim.keymap.set("i", "<right>", "<nop>", { noremap = true })
+vim.keymap.set("c", "<up>", "<nop>", { noremap = true })
+vim.keymap.set("c", "<down>", "<nop>", { noremap = true })
+vim.keymap.set("c", "<left>", "<nop>", { noremap = true })
+vim.keymap.set("c", "<right>", "<nop>", { noremap = true })
 
 -- Pinky promise?
 vim.keymap.set("n", "<leader>wc", "<C-W>c")
@@ -60,3 +81,47 @@ vim.keymap.set("n", "<leader>ws", "<C-W>s<C-W>j")
 
 -- You haven't seen anything
 vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>")
+
+vim.diagnostic.config({
+  virtual_text = false,
+  signs = true,
+  underline = true,
+  float = true,
+})
+
+local function get_trimmed_path()
+	local path = vim.fn.expand('%:p')
+	local parts = vim.split(path, '/', {plain = true})
+	
+	if path == '' then return '' end
+	
+	if #parts <= 3 then
+			return path
+	end
+	
+	local trimmed = table.concat({
+			parts[#parts-2],
+			parts[#parts-1],
+			parts[#parts]
+	}, '/')
+	
+	return '  ' .. trimmed
+end
+
+vim.api.nvim_create_autocmd({ 
+	"VimEnter", 
+	"BufEnter", 
+	"BufModifiedSet", 
+	"WinEnter", 
+	"WinLeave" 
+}, {
+  callback = function(args)
+    local buf = args.buf
+
+    if vim.bo[buf].buftype == "nofile" then
+      vim.opt_local.winbar = ""
+    else
+      vim.opt_local.winbar = get_trimmed_path()
+    end
+  end
+})
