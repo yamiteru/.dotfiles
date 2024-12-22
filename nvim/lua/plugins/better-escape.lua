@@ -1,5 +1,5 @@
 return {
-	"echasnovski/mini.bufremove",
+	"max397574/better-escape.nvim",
 	opts = {},
 	event = {
 		"BufReadPost",

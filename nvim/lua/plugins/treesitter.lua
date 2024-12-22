@@ -16,6 +16,12 @@ function config()
 		},
 		incremental_selection = {
 			enable = true,
+			keymaps = {
+        init_selection = 'gnn',
+        node_incremental = '.',
+        scope_incremental = 'grc',
+        node_decremental = ',',
+      }
 		}
 	})
 end

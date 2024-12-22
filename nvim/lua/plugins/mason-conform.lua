@@ -1,3 +1,5 @@
+-- TODO: Use require_cwd instead of custom logic
+-- https://github.com/stevearc/conform.nvim/blob/339b3e4519ec49312d34fcfa275aa15bfaa67025/README.md?plain=1#L557
 return {
   "zapling/mason-conform.nvim",
   event = "BufReadPre",

@@ -1,8 +1,8 @@
 return {
 	"shortcuts/no-neck-pain.nvim",
-	event = "VeryLazy",
+	lazy = false,
 	opts = {
-		width = 80,
+		width = 70,
 		minSideBufferWidth = 4,
 		killAllBuffersOnDisable = true,
 		autocmds = {
@@ -13,12 +13,6 @@ return {
 		},
 		mappings = {
 			enabled = true
-		},
-		integrations = {
-			NeoTree = {
-				position = "right",
-				reopen = true,
-			},
 		}
 	}
 }
