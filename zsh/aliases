@@ -4,3 +4,5 @@ alias c='clear'
 
 alias python='python3'
 alias pip='pip3'
+
+alias 'gitui'='eval $(ssh-agent) && ssh-add ~/.ssh/gitkraken_rsa && gitui && ssh-agent -k'
