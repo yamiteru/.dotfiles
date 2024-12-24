@@ -11,8 +11,8 @@ return {
 	event = { "BufReadPost", "BufNewFile" },
 	cmd = "Grapple",
 	keys = {
-		{ "<leader>j", "<cmd>Grapple toggle<cr>", desc = "Grapple toggle tag" },
-		{ "<leader>f", "<cmd>Grapple toggle_tags<cr>", desc = "Grapple open tags window" },
+		{ "<leader>t", "<cmd>Grapple toggle<cr>", desc = "Grapple toggle tag" },
+		{ "<leader>ft", "<cmd>Grapple toggle_tags<cr>", desc = "Grapple open tags window" },
 		{ "<c-h>", "<cmd>Grapple select index=1<cr>", desc = "Select first tag" },
 		{ "<c-j>", "<cmd>Grapple select index=2<cr>", desc = "Select second tag" },
 		{ "<c-k>", "<cmd>Grapple select index=3<cr>", desc = "Select third tag" },
