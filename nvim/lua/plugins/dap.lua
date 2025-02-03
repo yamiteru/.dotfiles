@@ -1,4 +1,3 @@
--- In your lazy plugins configuration file (e.g., lua/plugins/debug.lua)
 return {
 	"mfussenegger/nvim-dap",
 	dependencies = {
@@ -10,7 +9,6 @@ return {
 		local dap = require("dap")
 		local dapui = require("dapui")
 
-		-- Configure Zig adapter
 		dap.adapters.codelldb = {
 			type = 'server',
 			port = "${port}",
@@ -20,7 +18,6 @@ return {
 			}
 		}
 
-		-- Configure Zig configuration
 		dap.configurations.zig = {
 			{
 				name = "Launch",
@@ -34,7 +31,6 @@ return {
 			}
 		}
 
-		-- Configure DAP UI
 		dapui.setup({
 			icons = { expanded = "▾", collapsed = "▸" },
 			mappings = {
@@ -75,7 +71,6 @@ return {
 			},
 		})
 
-		-- Automatically open/close dapui when debugging starts/ends
 		dap.listeners.after.event_initialized["dapui_config"] = function()
 			dapui.open()
 		end
@@ -86,10 +81,8 @@ return {
 			dapui.close()
 		end
 
-		-- Add virtual text support
 		require("nvim-dap-virtual-text").setup()
 
-		-- Key mappings
 		vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
 		vim.keymap.set('n', '<F10>', dap.step_over, { desc = 'Debug: Step Over' })
 		vim.keymap.set('n', '<F11>', dap.step_into, { desc = 'Debug: Step Into' })

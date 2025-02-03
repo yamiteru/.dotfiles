@@ -17,7 +17,6 @@ return {
 				"svelte",
 				"tailwindcss",
 				"ts_ls",
-				"biome",
 				"eslint",
 				"zls",
 				"yamlls",
