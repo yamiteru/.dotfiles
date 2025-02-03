@@ -1,20 +1,19 @@
 return {
 	'echasnovski/mini.colors',
-	lazy = false,
+	-- lazy = false,
 	config = function()
 		local MiniColors = require("mini.colors")
 
 		local p = {
-			Error = "#F44336",
-			Warning = "#FF9800",
-			Gray100 = "#e1e2e7",
-			Gray200 = "#EEEEEE",
-			Gray300 = "#cfcfcf",
-			Gray400 = "#BDBDBD",
-			Gray500 = "#9E9E9E",
-			Gray600 = "#757575",
-			Gray700 = "#616161",
-			Gray800 = "#424242",
+			Error = "#ff0000",
+			Warning = "#ffaf00",
+			Gray100 = "#e4e4e4",
+			Gray300 = "#d0d0d0",
+			Gray400 = "#bcbcbc",
+			Gray500 = "#a8a8a8",
+			Gray600 = "#949494",
+			Gray700 = "#808080",
+			Gray800 = "#6c6c6c",
 			Black = "#000000",
 		}
 
@@ -42,7 +41,7 @@ return {
 		}
 
 		local theme = MiniColors.as_colorscheme({
-			name = 'Brutono',
+			name = 'Brutonochrome',
 			groups = {
 				ColorColumn = { bg = p.Gray100 },
 				Conceal = { fg = p.Gray600 },

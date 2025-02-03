@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp -r /Users/yamiteru/.config/nushell/config.nu '/Users/yamiteru/Library/Application Support/nushell/config.nu'
+cp -r /Users/yamiteru/.config/nushell/env.nu '/Users/yamiteru/Library/Application Support/nushell/env.nu'

@@ -23,9 +23,9 @@ return {
           biome = "biome",
           prettier = "prettier",
           eslint_d = "eslint",
-          deno_fmt = "deno.json",
           stylua = "stylua",
-          stylelint = "stylelint"
+          stylelint = "stylelint",
+          zig = "build.zig",
         }
 
         local language_config = {
@@ -38,15 +38,15 @@ return {
             file_types = { "html" }
           },
           javascript = {
-            formatters = { "biome", "eslint_d", "deno_fmt", "prettier" },
+            formatters = { "biome", "eslint_d", "prettier" },
             file_types = { "js", "mjs", "cjs" }
           },
           javascriptreact = {
-            formatters = { "biome", "eslint_d", "deno_fmt", "prettier" },
+            formatters = { "biome", "eslint_d", "prettier" },
             file_types = { "jsx" }
           },
           svelte = {
-            formatters = { "biome", "eslint_d", "deno_fmt", "prettier" },
+            formatters = { "biome", "eslint_d", "prettier" },
             file_types = { "svelte" }
           },
           json = {
@@ -62,16 +62,20 @@ return {
             file_types = { "lua" }
           },
           typescript = {
-            formatters = { "biome", "eslint_d", "deno_fmt", "prettier" },
+            formatters = { "biome", "eslint_d", "prettier" },
             file_types = { "ts", "mts", "d.ts", "cts" }
           },
           typescriptreact = {
-            formatters = { "biome", "eslint_d", "deno_fmt", "prettier" },
+            formatters = { "biome", "eslint_d", "prettier" },
             file_types = { "tsx" }
           },
           yaml = {
             formatters = { "biome", "prettier" },
             file_types = { "yaml", "yml" }
+          },
+          zig = {
+            formatters = { "zls" },
+            file_types = { "zig" }
           }
         }
 

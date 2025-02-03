@@ -15,7 +15,7 @@ return {
 		},
 	},
 	keys = {
-		{ "<leader>ff", "<cmd>lua require('fzf-lua').files()<CR>" },
+		{ "<leader>ff", "<cmd>lua require('fzf-lua').files({ resume = false })<CR>" },
 		{ "<leader>fg", "<cmd>lua require('fzf-lua').live_grep()<CR>" },
 	}
 }

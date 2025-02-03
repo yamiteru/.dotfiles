@@ -1,0 +1,54 @@
+fullscreen = true
+title = ""
+resize-overlay = never
+focus-follows-mouse = false
+copy-on-select = clipboard
+confirm-close-surface = false
+scrollback-limit = 10000
+link-url = false
+
+font-family = Hack Nerd Font Mono
+font-size	= 21.0
+
+macos-non-native-fullscreen = false
+macos-titlebar-style = hidden
+macos-option-as-alt = true
+macos-window-shadow = false
+mouse-hide-while-typing = true
+
+clipboard-read = allow
+clipboard-write = allow
+clipboard-trim-trailing-spaces = true
+clipboard-paste-protection = false
+
+window-padding-x = 0
+window-padding-y = 0
+window-padding-balance = true
+window-padding-color = background
+window-inherit-working-directory = true
+window-inherit-font-size = true
+window-decoration = true 
+window-colorspace = display-p3
+
+palette = 0=#b4b5b9
+palette = 1=#f52a65
+palette = 2=#587539
+palette = 3=#8c6c3e
+palette = 4=#2e7de9
+palette = 5=#9854f1
+palette = 6=#007197
+palette = 7=#6172b0
+palette = 8=#a1a6c5
+palette = 9=#ff4774
+palette = 10=#5c8524
+palette = 11=#a27629
+palette = 12=#358aff
+palette = 13=#a463ff
+palette = 14=#007ea8
+palette = 15=#3760bf
+
+background = #e1e2e7
+foreground = #3760bf
+cursor-color = #3760bf
+selection-background = #b7c1e3
+selection-foreground = #3760bf

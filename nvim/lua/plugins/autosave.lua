@@ -3,8 +3,8 @@ return {
 	opts = {
 		debounce_delay = 1000
 	},
-	event = {
-		"BufReadPost",
-		"BufNewFile"
-	},
+	-- event = {
+	-- 	"BufReadPost",
+	-- 	"BufNewFile"
+	-- },
 }

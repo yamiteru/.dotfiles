@@ -11,7 +11,6 @@ return {
 			ensure_installed = {
 				"lua_ls",
 				"cssls",
-				"denols",
 				"html",
 				"jsonls",
 				"stylelint_lsp",
