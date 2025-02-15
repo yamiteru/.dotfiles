@@ -10,9 +10,18 @@ return {
 	init = function()
 		vim.g.coq_settings = {
 			auto_start = "shut-up",
+			completion = {
+				always = false
+			},
+			display = {
+				ghost_text = {
+					enabled = false
+				}
+			},
+			keymap = {
+				manual_complete = "<c-e>",
+				manual_complete_insertion_only = true
+			}
 		}
-	end,
-	config = function()
-		require('render-markdown.integ.coq').setup()
 	end
 }

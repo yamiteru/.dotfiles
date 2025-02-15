@@ -137,9 +137,9 @@ return {
         end
 
         require("conform").setup({
-          formatters_by_ft = formatters_by_ft,
-					notify_on_error = false,
-					notify_no_formatters = false,
+			formatters_by_ft = formatters_by_ft,
+			notify_on_error = false,
+			notify_no_formatters = false,
         })
 
         vim.api.nvim_create_user_command("Format", function()

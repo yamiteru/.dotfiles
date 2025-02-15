@@ -7,5 +7,3 @@ alias nu-open = open
 alias open = ^open
 alias python = python3
 alias pip = pip3
-
-if ('ZELLIJ' in $env) { ignore } else { zellij }
