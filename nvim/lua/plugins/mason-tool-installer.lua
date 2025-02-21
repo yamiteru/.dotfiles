@@ -4,15 +4,14 @@ return {
 		auto_update = true,
 		run_on_start = true,
 		ensure_installed = {
-			"js-debug-adapter",
 			"codespell",
 			"lua-language-server",
 			"stylua",
 		},
 	},
-  cmd = "MasonToolsUpdate",
-  event = "BufReadPre",
-  dependencies = {
+	cmd = "MasonToolsUpdate",
+	event = "BufReadPre",
+	dependencies = {
 		"williamboman/mason.nvim"
 	},
 }
