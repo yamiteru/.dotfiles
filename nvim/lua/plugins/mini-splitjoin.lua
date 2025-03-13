@@ -1,5 +1,5 @@
 return {
 	"echasnovski/mini.splitjoin",
-	event = { "BufReadPost", "BufNewFile" },
+	event = {"BufReadPost", "BufNewFile"},
 	opts = {}
 }

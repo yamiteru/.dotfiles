@@ -4,7 +4,7 @@ return {
 	event = "InsertEnter",
 	build = ":COQdeps",
 	dependencies = {
-		{ "ms-jpq/coq.artifacts",  branch = "artifacts" },
+		{ "ms-jpq/coq.artifacts", branch = "artifacts" },
 		{ "ms-jpq/coq.thirdparty", branch = "3p" },
 	},
 	init = function()
