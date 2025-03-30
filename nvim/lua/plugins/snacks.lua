@@ -19,14 +19,7 @@ return {
 		},
 		picker = {},
 		quickfile = {},
-		words = {},
-		zen = {
-			zoom = {
-				win = {
-					width = 40,
-				},
-			},
-		},
+		words = {}
 	},
 	init = function()
 		vim.api.nvim_create_autocmd("User", {
@@ -44,7 +37,6 @@ return {
 		{ "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
 		{ "<leader>fg", function() Snacks.picker.grep() end, desc = "Grep" },
 		{ "<leader>fe", function() Snacks.explorer() end, desc = "Explorer" },
-		{ "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git blame" },
-		{ "<leader>z",  function() Snacks.zen() end, desc = "Toggle Zen Mode" },
+		{ "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git blame" }
 	},
 }
