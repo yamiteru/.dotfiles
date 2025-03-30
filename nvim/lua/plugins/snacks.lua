@@ -18,13 +18,12 @@ return {
 			},
 		},
 		picker = {},
-		explorer = {},
 		quickfile = {},
 		words = {},
 		zen = {
 			zoom = {
 				win = {
-					width = 60,
+					width = 40,
 				},
 			},
 		},
