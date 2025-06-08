@@ -10,26 +10,10 @@ return {
 		require("mason-lspconfig").setup({
 			ensure_installed = {
 				"lua_ls",
-				"cssls",
-				"html",
-				"jsonls",
-				"stylelint_lsp",
-				"svelte",
-				"tailwindcss",
-				"ts_ls",
-				"eslint",
 				"zls",
 				"yamlls",
-				"taplo",
 			},
-			automatic_installation = true,
 		})
-
-    require("mason-lspconfig").setup_handlers {
-			function (server_name)
-				require("lspconfig")[server_name].setup({})
-			end,
-    }
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),

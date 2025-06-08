@@ -21,40 +21,37 @@ return {
       config = function()
         local patterns = {
           biome = "biome",
-          prettier = "prettier",
-          eslint_d = "eslint",
           stylua = "stylua",
-          stylelint = "stylelint",
           zig = "build.zig",
         }
 
         local language_config = {
           css = {
-            formatters = { "biome", "prettier", "stylelint" },
+            formatters = { "biome" },
             file_types = { "css" }
           },
           html = {
-            formatters = { "biome", "prettier" },
+            formatters = { "biome" },
             file_types = { "html" }
           },
           javascript = {
-            formatters = { "biome", "eslint_d", "prettier" },
+            formatters = { "biome" },
             file_types = { "js", "mjs", "cjs" }
           },
           javascriptreact = {
-            formatters = { "biome", "eslint_d", "prettier" },
+            formatters = { "biome" },
             file_types = { "jsx" }
           },
           svelte = {
-            formatters = { "biome", "eslint_d", "prettier" },
+            formatters = { "biome" },
             file_types = { "svelte" }
           },
           json = {
-            formatters = { "biome", "prettier" },
+            formatters = { "biome" },
             file_types = { "json" }
           },
           jsonc = {
-            formatters = { "biome", "prettier" },
+            formatters = { "biome" },
             file_types = { "jsonc" }
           },
           lua = {
@@ -62,15 +59,15 @@ return {
             file_types = { "lua" }
           },
           typescript = {
-            formatters = { "biome", "eslint_d", "prettier" },
+            formatters = { "biome" },
             file_types = { "ts", "mts", "d.ts", "cts" }
           },
           typescriptreact = {
-            formatters = { "biome", "eslint_d", "prettier" },
+            formatters = { "biome" },
             file_types = { "tsx" }
           },
           yaml = {
-            formatters = { "biome", "prettier" },
+            formatters = { "biome" },
             file_types = { "yaml", "yml" }
           },
           zig = {
