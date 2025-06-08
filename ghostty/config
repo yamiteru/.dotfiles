@@ -1,0 +1,17 @@
+theme = tokyonight-day
+shell-integration = detect
+
+cursor-style = block
+cursor-style-blink = false
+clipboard-trim-trailing-spaces = true
+mouse-hide-while-typing = true
+
+font-family = "Hack Nerd Font Mono"
+font-size = 16
+
+mouse-hide-while-typing = true
+mouse-scroll-multiplier = 0
+
+window-padding-x = 1
+window-padding-y = 1
+window-padding-balance = true
