@@ -1,3 +1,8 @@
+-- TODO: get rid of the warning "Undefined global `vim`."
+-- TODO: add file name info somewhere so I know where the current file I'm looking at is located
+-- TODO: show errors in a popup
+-- TODO: goto references/declarations/implementations
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -24,10 +29,8 @@ vim.opt.tabstop = 4
 
 vim.o.completeopt = "menuone,noinsert,popup,fuzzy"
 
-vim.o.foldenable = true
-vim.o.foldlevel = 99
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
 
 -- Show me thy numbers!
 vim.opt.signcolumn = "yes:1"
@@ -97,6 +100,8 @@ vim.diagnostic.config({
     }
   }
 })
+
+vim.pack.add({"https://github.com/nvim-lua/plenary.nvim"})
 
 vim.pack.add({
 	{
@@ -170,10 +175,6 @@ require("oil").setup({
 	}
 })
 
-if vim.fn.argc() == 0 then
-	require("oil").open()
-end
-
 vim.keymap.set("n", "-", "<CMD>Oil<CR>")
 
 vim.pack.add({"https://github.com/nvim-focus/focus.nvim"})
@@ -246,6 +247,89 @@ require("mason-lspconfig").setup({
 	}
 })
 
+vim.pack.add({"https://github.com/folke/trouble.nvim"})
+require("trouble").setup({})
+
+vim.g.lspTimeoutConfig = {
+    stopTimeout  = 1000 * 60 * 5,
+    startTimeout = 0,
+    silent       = true
+}
+
+vim.pack.add({"https://github.com/hinell/lsp-timeout.nvim"})
+
+-- TODO: find a better folding plugin
+-- autoFold doens't work
+vim.pack.add({"https://github.com/chrisgrieser/nvim-origami"})
+require("origami").setup({
+	autoFold = {
+		enabled = true,
+		-- This doesn't work for some reason
+		kinds = { "comment", "imports" },
+	},
+})
+
+vim.pack.add({"https://github.com/jghauser/mkdir.nvim"})
+
+vim.pack.add({"https://github.com/chrisgrieser/nvim-early-retirement"})
+require("early-retirement").setup({
+	retirementAgeMins = 5,
+	ignoreUnsavedChangesBufs = false,
+	ignoreVisibleBufs = false,
+	deleteBufferWhenFileDeleted = true
+})
+
+local excluded_filetypes = {
+  "gitcommit",
+  "Trouble",
+  "oil",
+  "prompt",
+  "toggleterm",
+}
+
+local function save_condition(buf)
+  if
+    vim.tbl_contains(excluded_filetypes, vim.fn.getbufvar(buf, "&filetype")) or vim.fn.getbufvar(buf, "&buftype") ~= ''
+  then
+    return false
+  end
+  return true
+end
+
+vim.pack.add({"https://github.com/okuuva/auto-save.nvim"})
+require("auto-save").setup({
+	debounce_delay = 5000,
+	condition = save_condition
+})
+
+vim.pack.add({"https://github.com/shortcuts/no-neck-pain.nvim"})
+require("no-neck-pain").setup()
+
+vim.pack.add({"https://github.com/abecodes/tabout.nvim"})
+require('tabout').setup()
+
+vim.pack.add({"https://github.com/cbochs/grapple.nvim"})
+-- TODO: add keybindings
+require("grapple").setup({
+	scope = "git",
+	icons = false,
+	status = false,
+})
+
+vim.pack.add({"https://github.com/pwntester/octo.nvim"})
+-- TODO: add keybindings
+require("octo").setup({
+	default_merge_method = "rebase",
+	picker = "fzf-lua"
+})
+
+vim.pack.add({"https://github.com/stevearc/quicker.nvim"})
+require("quicker").setup()
+
 vim.keymap.set('i', '<c-space>', function()
 	vim.lsp.completion.get()
 end)
+
+if vim.fn.argc() == 0 then
+	require("oil").open()
+end
