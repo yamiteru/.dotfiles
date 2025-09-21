@@ -1,19 +1,38 @@
--- require("config.globals")
--- require("config.lazy")
-
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-vim.o.completeopt = "menuone,noinsert,popup,fuzzy" -- modern completion menu
+-- No status line
+vim.opt.laststatus = 3
+vim.o.ls = 0
+vim.o.stl = "%{repeat(' ',winwidth('.'))}"
+vim.o.cmdheight = 0
 
-vim.o.foldenable = true   -- enable fold
-vim.o.foldlevel = 99      -- start editing with all folds opened
-vim.o.foldmethod = "expr" -- use tree-sitter for folding method
+-- No thank you
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- Sharing is caring
+vim.opt.clipboard = "unnamedplus"
+
+-- Me SSD, me like not swap
+vim.opt.swapfile = false
+
+-- The only acceptable width
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.tabstop = 4
+
+vim.o.completeopt = "menuone,noinsert,popup,fuzzy"
+
+vim.o.foldenable = true
+vim.o.foldlevel = 99
+vim.o.foldmethod = "expr"
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
-vim.o.termguicolors = true  -- enable rgb colors
-
-vim.o.number = true         -- enable line number
-vim.o.relativenumber = true -- and relative line number
+-- Show me thy numbers!
+vim.opt.signcolumn = "yes:1"
+vim.opt.number = false
+vim.opt.relativenumber = false
 
 vim.opt.wildmenu = true
 vim.opt.wildmode = "longest:full,full"
@@ -23,41 +42,49 @@ vim.opt.diffopt:append("linematch:60")
 vim.opt.redrawtime = 10000
 vim.opt.maxmempattern = 20000
 
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
-    callback = function(ev)
-        vim.lsp.completion.enable(true, ev.data.client_id, ev.buf)
-    end,
-})
+-- Mouse? I don't use rodents to navigate my code
+vim.opt.mouse = ""
 
-vim.api.nvim_create_autocmd("FileType", {
-    callback = function()
-        pcall(vim.treesitter.start)
-    end
-})
+-- You haven't seen anything
+vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>")
 
-vim.lsp.enable("lua_ls")
+-- Make your case
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
-local augroup = vim.api.nvim_create_augroup("UserConfig", {})
+-- My style is going to blind you
+vim.opt.background = "light"
+vim.opt.termguicolors = true
+vim.opt.showmode = false
+vim.opt.breakindent = true
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.opt.scrolloff = 10
+vim.opt.hlsearch = true
+vim.opt.fillchars = {
+	eob = ' ',
+	horiz = ' ',
+	horizup = ' ',
+	horizdown = ' ',
+	vert = ' ',
+	vertleft = ' ',
+	vertright = ' ',
+	verthoriz = ' ',
+	fold = ' ',
+	foldopen = ' ',
+	foldclose = ' ',
+	foldsep = ' ',
+	diff = ' ',
+	lastline = ' ',
+}
 
--- Create directories when saving files
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = augroup,
-  callback = function()
-    local dir = vim.fn.expand('<afile>:p:h')
-    if vim.fn.isdirectory(dir) == 0 then
-      vim.fn.mkdir(dir, 'p')
-    end
-  end,
-})
-
--- Better LSP UI
 vim.diagnostic.config({
-  virtual_text = { prefix = '●' },
+  virtual_text = true,
   signs = true,
   underline = true,
-  update_in_insert = false,
+  update_in_insert = true,
   severity_sort = true,
+  float = true,
 })
 
 vim.diagnostic.config({
@@ -71,42 +98,32 @@ vim.diagnostic.config({
   }
 })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(event)
-    local opts = {buffer = event.buf}
-
-    -- Navigation
-    vim.keymap.set('n', 'gD', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gs', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-
-    -- Information
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-
-    -- Code actions
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-
-    -- Diagnostics
-    vim.keymap.set('n', '<leader>nd', vim.diagnostic.goto_next, opts)
-    vim.keymap.set('n', '<leader>pd', vim.diagnostic.goto_prev, opts)
-    vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
-    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
-  end,
+vim.pack.add({
+	{
+		src = "https://github.com/nvim-treesitter/nvim-treesitter",
+		version = "main"
+	}
 })
-
-vim.api.nvim_create_user_command('LspInfo', function()
-  local clients = vim.lsp.get_clients({ bufnr = 0 })
-  if #clients == 0 then
-    print("No LSP clients attached to current buffer")
-  else
-    for _, client in ipairs(clients) do
-      print("LSP: " .. client.name .. " (ID: " .. client.id .. ")")
-    end
-  end
-end, { desc = 'Show LSP client info' })
+require("nvim-treesitter.configs").setup({
+	indent = {
+		enable = true
+	},
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = false,
+	},
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "gnn",
+			node_incremental = "grn",
+			scope_incremental = "grc",
+			node_decremental = "grm",
+		},
+	},
+})
+-- TODO: how to trigger this?
+-- vim.cmd "TSUpdate"
 
 vim.pack.add({ "https://github.com/echasnovski/mini.move" })
 require('mini.move').setup()
@@ -134,43 +151,101 @@ require('mini.trailspace').setup()
 
 vim.pack.add({ "https://github.com/stevearc/oil.nvim" })
 require("oil").setup({
-			default_file_explorer = true,
-			columns = {},
-			delete_to_trash = true,
-			skip_confirm_for_simple_edits = true,
-			watch_for_changes = true,
-			lsp_file_methods = {
-				enabled = true,
-				timeout_ms = 5000,
-				autosave_changes = true,
-			},
-			keymaps = {
-				["<M-h>"] = "actions.select_split",
-			},
-			view_options = {
-				show_hidden = true,
-				natural_order = true,
-			}
-})
-
-vim.pack.add({"https://github.com/nvim-focus/focus.nvim",})
-require("focus").setup()
-
-vim.pack.add({"https://github.com/miversen33/sunglasses.nvim",})
-require("sunglasses").setup({
-    filter_type = "NOSYNTAX",
-    filter_percent = .4
+	default_file_explorer = true,
+	columns = {},
+	delete_to_trash = true,
+	skip_confirm_for_simple_edits = true,
+	watch_for_changes = true,
+	lsp_file_methods = {
+		enabled = true,
+		timeout_ms = 5000,
+		autosave_changes = true,
+	},
+	keymaps = {
+		["<M-h>"] = "actions.select_split",
+	},
+	view_options = {
+		show_hidden = true,
+		natural_order = true,
+	}
 })
 
 if vim.fn.argc() == 0 then
 	require("oil").open()
 end
 
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open Oil file explorer" })
+vim.keymap.set("n", "-", "<CMD>Oil<CR>")
 
-vim.pack.add({"https://github.com/folke/tokyonight.nvim",})
+vim.pack.add({"https://github.com/nvim-focus/focus.nvim"})
+require("focus").setup()
+
+vim.pack.add({"https://github.com/miversen33/sunglasses.nvim"})
+require("sunglasses").setup({
+    filter_type = "NOSYNTAX",
+    filter_percent = .4
+})
+
+vim.pack.add({"https://github.com/folke/tokyonight.nvim"})
 vim.cmd[[colorscheme tokyonight-day]]
 
+vim.pack.add({"https://github.com/ibhagwan/fzf-lua"})
+require("fzf-lua").setup()
+
+vim.keymap.set("n", "<leader>ff", "<CMD>FzfLua files<CR>")
+vim.keymap.set("n", "<leader>fb", "<CMD>FzfLua buffers<CR>")
+vim.keymap.set("n", "<leader>fg", "<CMD>FzfLua live_grep<CR>")
+
+vim.pack.add({
+	{
+		src = "https://github.com/Saghen/blink.cmp",
+		version = vim.version.range("1.*")
+	}
+})
+require("blink.cmp").setup({
+	keymap = {
+		preset = 'default'
+	},
+	completion = {
+		documentation = {
+			auto_show = true
+		}
+	},
+	sources = {
+      default = {
+      	'lsp',
+      	'path',
+      	'snippets',
+      	'buffer'
+      },
+    },
+	fuzzy = {
+		implementation = "prefer_rust",
+		prebuilt_binaries = {
+			force_version = "1.7.0"
+		}
+	}
+})
+
+vim.pack.add({"https://github.com/neovim/nvim-lspconfig"})
+vim.pack.add({"https://github.com/mason-org/mason-lspconfig.nvim"})
+vim.pack.add({"https://github.com/mason-org/mason.nvim"})
+
+require("mason").setup()
+
+local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+require("mason-lspconfig").setup({
+	ensure_installed = {},
+	automatic_installation = true,
+	handlers = {
+		function(server_name)
+			require("lspconfig")[server_name].setup({
+				capabilities = capabilities
+			})
+		end
+	}
+})
+
 vim.keymap.set('i', '<c-space>', function()
-  vim.lsp.completion.get()
+	vim.lsp.completion.get()
 end)
