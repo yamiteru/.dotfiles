@@ -1,5 +1,6 @@
 theme = TokyoNight Day
-shell-integration = detect
+shell-integration = none
+command = /opt/homebrew/bin/zellij
 
 cursor-style = block
 cursor-style-blink = false
@@ -12,3 +13,35 @@ font-size = 18
 window-padding-x = 1
 window-padding-y = 1
 window-padding-balance = true
+
+# ── Zellij-exclusive multiplexing ──────────────────────────
+# Disable native tab/window/split keybindings so they pass through to Zellij
+keybind = super+t=unbind
+keybind = super+n=unbind
+keybind = super+d=unbind
+keybind = super+shift+d=unbind
+keybind = super+w=unbind
+keybind = super+1=csi:49;9u
+keybind = super+2=csi:50;9u
+keybind = super+3=csi:51;9u
+keybind = super+4=csi:52;9u
+keybind = super+5=csi:53;9u
+keybind = super+6=csi:54;9u
+keybind = super+7=csi:55;9u
+keybind = super+8=csi:56;9u
+keybind = super+9=csi:57;9u
+keybind = super+digit_1=csi:49;9u
+keybind = super+digit_2=csi:50;9u
+keybind = super+digit_3=csi:51;9u
+keybind = super+digit_4=csi:52;9u
+keybind = super+digit_5=csi:53;9u
+keybind = super+digit_6=csi:54;9u
+keybind = super+digit_7=csi:55;9u
+keybind = super+digit_8=csi:56;9u
+keybind = super+digit_9=csi:57;9u
+
+# Remove the title bar for a clean, minimal look
+macos-titlebar-style = hidden
+
+# Let Option/Alt pass through as Alt (required for Zellij's default Alt+key bindings)
+macos-option-as-alt = true
