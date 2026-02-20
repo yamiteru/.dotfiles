@@ -1,0 +1,32 @@
+default_shell "/opt/homebrew/bin/nu"
+default_layout "compact"
+pane_frames false
+simplified_ui true
+hide_session_name true
+theme "tokyonight-day"
+
+keybinds {
+    shared_except "locked" {
+        bind "Super t" { NewTab; }
+        bind "Super n" { NewTab; }
+        bind "Super d" { NewPane "Right"; }
+        bind "Super Shift d" { NewPane "Down"; }
+        bind "Super w" { CloseFocus; }
+    }
+}
+
+themes {
+    tokyonight-day {
+        bg "#e1e2e7"
+        fg "#3760bf"
+        black "#b4b5b9"
+        red "#f52a65"
+        green "#587539"
+        yellow "#8c6c3e"
+        blue "#2e7de9"
+        magenta "#9854f1"
+        cyan "#007197"
+        white "#6172b0"
+        orange "#b15c00"
+    }
+}
